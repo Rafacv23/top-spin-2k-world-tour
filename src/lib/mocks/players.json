@@ -1,0 +1,72 @@
+[
+  {
+    "rank": 1,
+    "name": "Jannik Sinner",
+    "country": "Italy",
+    "points": 10000,
+    "tournaments": 10
+  },
+  {
+    "rank": 2,
+    "name": "Carlos Alcaraz",
+    "country": "Spain",
+    "points": 9500,
+    "tournaments": 9
+  },
+  {
+    "rank": 3,
+    "name": "Novak Djokovic",
+    "country": "Serbia",
+    "points": 9000,
+    "tournaments": 8
+  },
+  {
+    "rank": 4,
+    "name": "Daniil Medvedev",
+    "country": "Russia",
+    "points": 8500,
+    "tournaments": 7
+  },
+  {
+    "rank": 5,
+    "name": "Stefanos Tsitsipas",
+    "country": "Greece",
+    "points": 8000,
+    "tournaments": 6
+  },
+  {
+    "rank": 6,
+    "name": "Alexander Zverev",
+    "country": "Germany",
+    "points": 7500,
+    "tournaments": 5
+  },
+  {
+    "rank": 7,
+    "name": "Dominic Thiem",
+    "country": "Austria",
+    "points": 7000,
+    "tournaments": 4
+  },
+  {
+    "rank": 8,
+    "name": "Roger Federer",
+    "country": "Switzerland",
+    "points": 6500,
+    "tournaments": 3
+  },
+  {
+    "rank": 9,
+    "name": "Jack Draper",
+    "country": "Great Britain",
+    "points": 6000,
+    "tournaments": 2
+  },
+  {
+    "rank": 10,
+    "name": "Rafael Nadal",
+    "country": "Spain",
+    "points": 5500,
+    "tournaments": 1
+  }
+]
