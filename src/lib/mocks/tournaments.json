@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "ATP Halle Open",
+    "location": "Halle, Germany",
+    "start-date": "2023-01-01",
+    "end-date": "2023-01-01",
+    "court": "Clay",
+    "points": "250",
+    "players": 64
+  }
+]
