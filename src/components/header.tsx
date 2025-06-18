@@ -3,7 +3,7 @@ import { buttonVariants } from "./ui/button"
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between p-2 bg-primary/10 fixed top-4 left-0 right-0 border border-primary/10 backdrop-blur-2xl rounded-lg mt-4">
+    <header className="flex items-center justify-between p-2 bg-card/50 z-50 fixed top-4 left-0 right-0 border border-primary/10 backdrop-blur-lg rounded-lg mt-4">
       <Link href={"/"} title="Top Spin 2k World Tour">
         <img src="/image-bg.png" alt="logo" width={60} className="rounded-lg" />
       </Link>
