@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export default function Hero() {
   return (
-    <section>
+    <section className="min-h-screen pt-20 flex flex-col gap-4">
       <img src="/image-bg.png" alt="logo" width={200} className="rounded-lg" />
       <h1 className="text-5xl font-bold">
         <span className="text-primary">Top Spin 2k</span> World Tour
