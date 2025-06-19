@@ -13,9 +13,9 @@ import { getRankingByYear } from "@/lib/queries"
 export default async function RankingsPage({
   params,
 }: {
-  params: { year: string }
+  params: Promise<{ year: string }>
 }) {
-  const year = await parseInt(params.year)
+  const year = parseInt((await params).year)
 
   const players = await getRankingByYear(year)
 
