@@ -1,14 +1,16 @@
+import { TournamentSurface } from "@prisma/client"
+
 export type Tournament = {
   id: string
   logo: string
   name: string
   location: string
-  startDate: string
-  endDate: string
+  startDate: Date
+  endDate: Date
   year: number
-  court: string
-  points: number
-  players: number
+  surface: TournamentSurface
+  points?: number
+  players?: number
 }
 
 type Set = {

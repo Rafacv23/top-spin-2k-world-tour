@@ -53,6 +53,7 @@ model Tournament {
   endDate   DateTime
   year      Int // e.g. 2023
   players   Int?
+  points    Int? // points awarded to the winner
 
   matches   Match[]
   createdAt DateTime @default(now())

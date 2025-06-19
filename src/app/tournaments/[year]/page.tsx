@@ -1,23 +1,31 @@
 import Container from "@/components/container"
-import tournaments from "@/lib/mocks/tournaments.json"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { groupByMonth } from "@/lib/utils"
 import TournamentCard from "@/components/tournament-card"
+import { getTournamentsByYear } from "@/lib/queries"
+import { Tournament } from "@/lib/types" // assuming your Tournament type is here
 
 export default async function TournamentsPage({
   params,
 }: {
   params: Promise<{ year: string }>
 }) {
-  const groupedTournaments = groupByMonth(tournaments)
+  const { year } = await params
+  const parsedYear = parseInt(year)
 
-  const year = (await params).year
+  const response = await getTournamentsByYear(parsedYear)
+
+  if (response.status !== 200 || !response.data) {
+    return (
+      <Container>
+        <h1 className="text-4xl font-bold">Tournaments {year}</h1>
+        <p className="text-red-500">Failed to load tournaments for {year}.</p>
+      </Container>
+    )
+  }
+
+  // Ensure type is Tournament[]
+  const tournaments = response.data as Tournament[]
+  const groupedTournaments = groupByMonth(tournaments)
 
   return (
     <Container>
@@ -26,7 +34,7 @@ export default async function TournamentsPage({
         Here you can find a list of all the tournaments that have been played.
         Click on a tournament to view its results.
       </p>
-      <Select>
+      {/* <Select>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Year" />
         </SelectTrigger>
@@ -34,8 +42,8 @@ export default async function TournamentsPage({
           <SelectItem value="2025">2025</SelectItem>
           <SelectItem value="2026">2026</SelectItem>
         </SelectContent>
-      </Select>
-      <div className="flex flex-col gap-8">
+      </Select> */}
+      <div className="flex flex-col gap-8 mt-6">
         {Object.entries(groupedTournaments).map(([month, tournaments]) => (
           <section key={month}>
             <h2 className="text-2xl font-semibold mb-4">

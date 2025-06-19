@@ -29,13 +29,13 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
           {tournament.name} | {tournament.location}
         </CardTitle>
         <CardDescription>
-          {tournament.startDate} | {tournament.endDate}
+          {tournament.startDate.toString()} | {tournament.endDate.toString()}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex gap-2">
         <Badge variant="outline">{tournament.points} Points</Badge>
         <Badge variant="outline">{tournament.players} Players</Badge>
-        <Badge variant="outline">{tournament.court} Court</Badge>
+        <Badge variant="outline">{tournament.surface} Court</Badge>
       </CardContent>
       <CardFooter>
         <Link

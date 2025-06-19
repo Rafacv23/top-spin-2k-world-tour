@@ -44,3 +44,50 @@ export async function getRankingByYear(year: number) {
     }
   }
 }
+
+//get tournaments by year
+export async function getTournamentsByYear(year: number) {
+  const currentYear = new Date().getFullYear()
+
+  if (!year) {
+    redirect(`/tournaments/${currentYear}`)
+  }
+
+  try {
+    const tournaments = await prisma.tournament.findMany({
+      where: { year },
+      orderBy: { startDate: "desc" },
+      select: {
+        id: true,
+        name: true,
+        startDate: true,
+        endDate: true,
+        location: true,
+        logo: true,
+        year: true,
+        surface: true,
+        players: true,
+        points: true,
+      },
+    })
+
+    if (!tournaments || tournaments.length === 0) {
+      return {
+        status: 404,
+        message: "No tournaments found for the specified year",
+      }
+    }
+
+    return {
+      status: 200,
+      message: "Successfully retrieved tournaments",
+      data: tournaments,
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      message: "Error retrieving tournaments",
+      error: error instanceof Error ? error.message : error,
+    }
+  }
+}
