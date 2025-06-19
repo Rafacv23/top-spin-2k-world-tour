@@ -204,7 +204,7 @@ export default function RegisterForm() {
                             value={country.label}
                             key={country.value}
                             onSelect={() => {
-                              form.setValue("country", country.value)
+                              form.setValue("country", country.label)
                             }}
                           >
                             {country.label}

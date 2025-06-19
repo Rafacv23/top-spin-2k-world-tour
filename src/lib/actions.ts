@@ -10,7 +10,8 @@ export async function registerNewPlayer(
   values: z.infer<typeof registerSchema>
 ) {
   try {
-    await prisma.player.create({
+    // first we register the player
+    const newPlayer = await prisma.player.create({
       data: {
         discord: values.discordId,
         id2k: values.id2k,
@@ -22,6 +23,17 @@ export async function registerNewPlayer(
         availability: values.availability,
         playerChoice: values.playerChoice,
         policy: values.policy,
+      },
+    })
+
+    // after that we register the player in the rankings for the current year
+
+    const currentYear = new Date().getFullYear()
+
+    await prisma.ranking.create({
+      data: {
+        playerId: newPlayer.id,
+        year: currentYear,
       },
     })
 

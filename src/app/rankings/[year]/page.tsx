@@ -8,16 +8,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import players from "@/lib/mocks/players.json"
+import { getRankingByYear } from "@/lib/queries"
 
 export default async function RankingsPage({
   params,
 }: {
   params: { year: string }
 }) {
-  const year = parseInt(params.year)
+  const year = await parseInt(params.year)
 
-  // TODO fetch real rankings
+  const players = await getRankingByYear(year)
+
+  console.log(players)
 
   return (
     <Container>
@@ -40,9 +42,9 @@ export default async function RankingsPage({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {players.map((player, index) => (
-              <TableRow key={index}>
-                <TableCell className="font-medium">{index + 1}</TableCell>
+            {players.data?.map((player) => (
+              <TableRow key={player.name}>
+                <TableCell className="font-medium">{player.position}</TableCell>
                 <TableCell>{player.name}</TableCell>
                 <TableCell>{player.country}</TableCell>
                 <TableCell>{player.tournaments}</TableCell>
