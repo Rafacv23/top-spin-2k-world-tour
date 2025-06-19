@@ -1,5 +1,5 @@
 import { buttonVariants } from "@/components/ui/button"
-import { REGISTER_URL, SITE_NAME } from "@/lib/constants"
+import { SITE_NAME } from "@/lib/constants"
 import Link from "next/link"
 import GlowingTitle from "../glowing-title"
 
@@ -16,9 +16,7 @@ export default function Hero() {
       </p>
       <footer className="flex items-center gap-4 mt-4">
         <Link
-          href={REGISTER_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={"/register"}
           className={buttonVariants({ variant: "default" })}
         >
           Register

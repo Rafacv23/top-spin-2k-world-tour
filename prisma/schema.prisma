@@ -9,6 +9,33 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum Platforms {
+  PC
+  PS5
+  Xbox
+}
+
+enum AvailabilityDays {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum TypePlayer {
+  REAL_PLAYER
+  MYPLAYER
+}
+
+enum Roles {
+  ADMIN // all crud options
+  TOURNAMENT_ORGANIZER // update and read options
+  REFEREE // only read options
+}
+
 model Tournament {
   id        String   @id @default(cuid())
   name      String
@@ -27,9 +54,16 @@ model Tournament {
 
 model Player {
   id        String   @id @default(cuid())
-  name      String   @unique
+  discord   String   @unique
+  id2k      String   @unique  // 2k id account
+  name      String?  @unique  //real name or gamertag
+  country   String
+  platform  Platforms // platform the player is playing on
   email     String   @unique
-  country   String?
+  experience  Boolean // true if player has played in a tournament
+  availability AvailabilityDays[]  // days of the week the player is available
+  playerChoice TypePlayer // whether the player is a real player or a MyPlayer
+  policy Boolean // whether the player has accepted the tournament policy
   matchesAsPlayerOne Match[] @relation("PlayerOneMatches")
   matchesAsPlayerTwo Match[] @relation("PlayerTwoMatches")
   matchesWon         Match[] @relation(fields: [], references: [])
@@ -73,8 +107,8 @@ model Set {
   match     Match    @relation(fields: [matchId], references: [id])
   matchId   String
 
-  number            Int    // 1 to 5
-  playerOneScore    Int
+  number            Int    // 1 to 5 total sets of the game
+  playerOneScore    Int    // games won by player one from 0 to 7
   playerTwoScore    Int
 
   createdAt DateTime @default(now())
@@ -84,5 +118,7 @@ model Admin {
   id        String   @id @default(cuid())
   email     String   @unique
   password  String
+  role      Roles
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

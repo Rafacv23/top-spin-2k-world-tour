@@ -1,0 +1,313 @@
+"use client"
+
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { Button } from "@/components/ui/button"
+import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { registerSchema } from "@/lib/schemas"
+import countryList from "react-select-country-list"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useMemo } from "react"
+import { Platforms, TypePlayer } from "@prisma/client"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Checkbox } from "@/components/ui/checkbox"
+import { AvailabilityDays } from "@prisma/client"
+
+export default function RegisterForm() {
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      discordId: "",
+      id2k: "",
+      name: "",
+      country: "",
+      platform: "PC",
+      email: "",
+      experience: false,
+      availability: [],
+      playerChoice: "REAL_PLAYER",
+      policy: false,
+    },
+  })
+
+  const countries = useMemo(() => countryList().getData(), [])
+
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof registerSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values)
+  }
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 bg-card p-4 rounded-lg border shadow grid grid-cols-1 gap-4"
+      >
+        <FormField
+          control={form.control}
+          name="discordId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Discord ID</FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  required
+                  aria-label="Discord Id"
+                  placeholder="Your Discord ID"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>Discord ID for communication</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="id2k"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>2K ID</FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  required
+                  aria-label="2k Id"
+                  placeholder="Your 2K ID"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>2K ID for matchmaking</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="discordId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Real Name (optional)</FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  aria-label="Real name or gamertag"
+                  placeholder="Your real name or gamertag"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>Helps us know you better</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="country"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Country</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your country" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {countries.map((country) => (
+                    <SelectItem key={country.value} value={country.value}>
+                      {country.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                Select your country for better matchmaking
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="platform"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Platform</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Platform" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {Object.entries(Platforms).map(([key, value]) => (
+                    <SelectItem key={key} value={value}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormDescription>Select the platform you play on</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input
+                  type="email"
+                  required
+                  aria-label="Your email"
+                  placeholder="example@example.com"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>Your email for communication</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="experience"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel>Do you play in a tournament before?</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={String(field.value)}
+                  className="flex flex-col"
+                >
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value="false" />
+                    </FormControl>
+                    <FormLabel className="font-normal">No</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value="true" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Yes</FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormItem>
+          <FormLabel>
+            Availability to play games (Select one or more days)
+          </FormLabel>
+          <div className="grid grid-cols-2 mt-4 gap-2">
+            {Object.values(AvailabilityDays).map((day) => (
+              <FormField
+                key={day}
+                control={form.control}
+                name="availability"
+                render={({ field }) => {
+                  return (
+                    <FormItem key={day}>
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value?.includes(day)}
+                          onCheckedChange={(checked) => {
+                            return checked
+                              ? field.onChange([...field.value, day])
+                              : field.onChange(
+                                  field.value.filter((d) => d !== day)
+                                )
+                          }}
+                        />
+                      </FormControl>
+                      <FormLabel className="font-normal">{day}</FormLabel>
+                    </FormItem>
+                  )
+                }}
+              />
+            ))}
+          </div>
+          <FormMessage />
+        </FormItem>
+        <FormField
+          control={form.control}
+          name="playerChoice"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel>What type of player do you prefer?</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-col"
+                >
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value={TypePlayer.MYPLAYER} />
+                    </FormControl>
+                    <FormLabel className="font-normal">My Player</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value={TypePlayer.REAL_PLAYER} />
+                    </FormControl>
+                    <FormLabel className="font-normal">Real Player</FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="policy"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>I agree to the tournament policy</FormLabel>
+                <FormDescription>
+                  You must accept the rules to participate in the tournament.
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
+  )
+}
