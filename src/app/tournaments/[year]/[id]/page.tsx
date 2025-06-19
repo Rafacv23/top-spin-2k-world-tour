@@ -5,6 +5,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Grid2x2, Users } from "lucide-react"
 import Link from "next/link"
 import matches from "@/lib/mocks/matches.json"
+import tournaments from "@/lib/mocks/tournaments.json"
 import { groupByRound } from "@/lib/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState } from "react"
@@ -19,6 +20,8 @@ export default function TournamentDetailsPage({
 
   const groupedMatches = groupByRound(matches)
 
+  const tournament = tournaments.find((t) => t.id === id)
+
   // Get all rounds
   const rounds = Object.keys(groupedMatches)
 
@@ -28,7 +31,7 @@ export default function TournamentDetailsPage({
   return (
     <Container>
       <header>
-        <nav>
+        <nav className="mb-8">
           <Link
             href={`/tournaments/${year}`}
             className={buttonVariants({ variant: "outline" })}
@@ -37,8 +40,9 @@ export default function TournamentDetailsPage({
             Tournaments
           </Link>
         </nav>
+        <img src={tournament?.logo} alt={tournament?.name} className="w-24" />
         <h1 className="text-4xl font-bold my-8">
-          {id}, {year}
+          {tournament?.name} {year}
         </h1>
       </header>
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

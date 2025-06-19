@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { buttonVariants } from "./ui/button"
+import { REGISTER_URL } from "@/lib/constants"
 
 export default function Header() {
   const currentYear = new Date().getFullYear()
@@ -35,7 +36,7 @@ export default function Header() {
         </Link>
         <Link
           className={buttonVariants({ variant: "default" })}
-          href={"/register"}
+          href={REGISTER_URL}
           title="Register new player"
         >
           Register

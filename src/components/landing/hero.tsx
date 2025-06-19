@@ -1,7 +1,10 @@
 import { buttonVariants } from "@/components/ui/button"
+import { REGISTER_URL } from "@/lib/constants"
 import Link from "next/link"
 
 export default function Hero() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <section className="min-h-screen pt-20 flex flex-col gap-4">
       <img src="/image-bg.png" alt="logo" width={200} className="rounded-lg" />
@@ -19,13 +22,15 @@ export default function Hero() {
       </p>
       <footer className="flex items-center gap-4 mt-4">
         <Link
-          href={"/register"}
+          href={REGISTER_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className={buttonVariants({ variant: "default" })}
         >
           Register
         </Link>
         <Link
-          href={"/tournaments"}
+          href={`/tournaments/${currentYear}`}
           className={buttonVariants({ variant: "outline" })}
         >
           Next Tournaments
