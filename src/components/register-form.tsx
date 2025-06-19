@@ -28,6 +28,8 @@ import { Platforms, TypePlayer } from "@prisma/client"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { AvailabilityDays } from "@prisma/client"
+import { registerNewPlayer } from "@/lib/actions"
+import { toast } from "sonner"
 
 export default function RegisterForm() {
   const form = useForm<z.infer<typeof registerSchema>>({
@@ -48,16 +50,21 @@ export default function RegisterForm() {
 
   const countries = useMemo(() => countryList().getData(), [])
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof registerSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function clientAction(values: z.infer<typeof registerSchema>) {
+    try {
+      const response = await registerNewPlayer(values)
+      toast.success(response.message)
+      form.reset()
+    } catch (error) {
+      console.log(error)
+      toast.error("Something went wrong while registering. Try again later.")
+    }
   }
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(clientAction)}
         className="space-y-8 bg-card p-4 rounded-lg border shadow grid grid-cols-1 gap-4"
       >
         <FormField
@@ -70,6 +77,7 @@ export default function RegisterForm() {
                 <Input
                   type="text"
                   required
+                  autoComplete="off"
                   aria-label="Discord Id"
                   placeholder="Your Discord ID"
                   {...field}
@@ -90,6 +98,7 @@ export default function RegisterForm() {
                 <Input
                   type="text"
                   required
+                  autoComplete="off"
                   aria-label="2k Id"
                   placeholder="Your 2K ID"
                   {...field}
@@ -102,13 +111,14 @@ export default function RegisterForm() {
         />
         <FormField
           control={form.control}
-          name="discordId"
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Real Name (optional)</FormLabel>
               <FormControl>
                 <Input
                   type="text"
+                  autoComplete="off"
                   aria-label="Real name or gamertag"
                   placeholder="Your real name or gamertag"
                   {...field}
@@ -133,7 +143,7 @@ export default function RegisterForm() {
                 </FormControl>
                 <SelectContent>
                   {countries.map((country) => (
-                    <SelectItem key={country.value} value={country.value}>
+                    <SelectItem key={country.value} value={country.label}>
                       {country.label}
                     </SelectItem>
                   ))}
@@ -181,6 +191,7 @@ export default function RegisterForm() {
                 <Input
                   type="email"
                   required
+                  autoComplete="off"
                   aria-label="Your email"
                   placeholder="example@example.com"
                   {...field}
@@ -196,10 +207,10 @@ export default function RegisterForm() {
           name="experience"
           render={({ field }) => (
             <FormItem className="space-y-3">
-              <FormLabel>Do you play in a tournament before?</FormLabel>
+              <FormLabel>Have you played in a tournament before?</FormLabel>
               <FormControl>
                 <RadioGroup
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => field.onChange(value === "true")}
                   defaultValue={String(field.value)}
                   className="flex flex-col"
                 >
@@ -221,6 +232,7 @@ export default function RegisterForm() {
             </FormItem>
           )}
         />
+
         <FormItem>
           <FormLabel>
             Availability to play games (Select one or more days)
