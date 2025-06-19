@@ -19,6 +19,7 @@ type Set = {
 export type Match = {
   id: string
   date: string
+  round: string
   playerOne: string
   playerTwo: string
   sets: Set[]
