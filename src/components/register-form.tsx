@@ -169,7 +169,7 @@ export default function RegisterForm() {
           name="country"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Language</FormLabel>
+              <FormLabel>Country</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
