@@ -36,20 +36,26 @@ enum Roles {
   REFEREE // only read options
 }
 
+enum TournamentSurface {
+  GRASS
+  CLAY
+  HARD
+  INDOOR
+}
+
 model Tournament {
   id        String   @id @default(cuid())
   name      String
-  slug      String   @unique
   location  String
-  logo      String?     // optional URL to logo
-  surface   String      // e.g. "Grass", "Clay", "Hard"
+  logo      String     // optional URL to logo
+  surface   TournamentSurface      // e.g. "Grass", "Clay", "Hard"
   startDate DateTime
   endDate   DateTime
-  players   Int
+  players   Int?
 
   matches   Match[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
 }
 
 model Player {
