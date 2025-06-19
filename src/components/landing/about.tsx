@@ -49,26 +49,6 @@ export default function About() {
           <li>
             <Card>
               <CardHeader>
-                <CardTitle>Discord</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Rankings based on performance and statistics for all players.
-                </CardDescription>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  href={"/register"}
-                  className={buttonVariants({ variant: "outline" })}
-                >
-                  Join
-                </Link>
-              </CardFooter>
-            </Card>
-          </li>
-          <li>
-            <Card>
-              <CardHeader>
                 <CardTitle>Instant Gaming</CardTitle>
               </CardHeader>
               <CardContent>
@@ -79,7 +59,9 @@ export default function About() {
               <CardFooter>
                 <Link
                   href={"/register"}
-                  className={buttonVariants({ variant: "outline" })}
+                  className={buttonVariants({
+                    variant: "outline",
+                  })}
                 >
                   Join
                 </Link>

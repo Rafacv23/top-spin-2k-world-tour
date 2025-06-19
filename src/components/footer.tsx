@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function Footer() {
   return (
-    <footer className="w-full flex border bg-card/10 p-4 border-primary/10 backdrop-blur-2xl rounded-lg mt-4">
+    <footer className="w-full flex border bg-card p-4 backdrop-blur-2xl rounded-lg mb-4">
       <a
         className="flex items-center gap-2 hover:underline hover:underline-offset-4"
         href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"

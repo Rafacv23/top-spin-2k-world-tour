@@ -17,7 +17,7 @@ export default function Contact() {
           Contact
         </span>
         <h2 className="relative top-0 w-fit h-auto py-4 justify-center flex bg-gradient-to-r items-center from-white to-primary  bg-clip-text text-4xl font-extrabold text-transparent text-center select-auto">
-          Contact{" "}
+          Contact
         </h2>
       </div>
       <p className="text-2xl">

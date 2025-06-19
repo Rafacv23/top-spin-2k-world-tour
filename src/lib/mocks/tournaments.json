@@ -1,12 +1,24 @@
 [
   {
-    "id": 1,
-    "name": "ATP Halle Open",
-    "location": "Halle, Germany",
-    "start-date": "2023-01-01",
-    "end-date": "2023-01-01",
+    "id": "wimbledon-2025",
+    "logo": "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Flogonoid.com%2Fimages%2Fwimbledon-logo.png&f=1&nofb=1&ipt=75519cc78df8e4a0201f423131ff0e61a879a30541f6e99edb7f9677c60a7560",
+    "name": "Wimbledon",
+    "location": "London, United Kingdom",
+    "startDate": "2025-07-01",
+    "endDate": "2025-07-15",
+    "court": "Grass",
+    "points": 2000,
+    "players": 128
+  },
+  {
+    "id": "rolland-garros-2025",
+    "logo": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F1000logos.net%2Fwp-content%2Fuploads%2F2023%2F02%2FRoland-Garros-logo-1536x864.png&f=1&nofb=1&ipt=8f7f5ec7ac9651109b7b0dc7540cc0d4f8231663727f70c43a4b3fc953006a50",
+    "name": "Roland Garros",
+    "location": "Paris, France",
+    "startDate": "2025-06-01",
+    "endDate": "2025-06-15",
     "court": "Clay",
-    "points": "250",
-    "players": 64
+    "points": 2000,
+    "players": 128
   }
 ]
