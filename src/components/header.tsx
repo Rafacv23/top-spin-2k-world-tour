@@ -28,13 +28,6 @@ export default function Header() {
       </div>
       <div className="flex items-center gap-4">
         <Link
-          className={buttonVariants({ variant: "outline" })}
-          href={"/login"}
-          title="Login to your account"
-        >
-          Login
-        </Link>
-        <Link
           className={buttonVariants({ variant: "default" })}
           href={REGISTER_URL}
           title="Register new player"
