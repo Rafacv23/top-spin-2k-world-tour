@@ -20,5 +20,16 @@
     "court": "Clay",
     "points": 2000,
     "players": 128
+  },
+  {
+    "id": "stuttgart-2025",
+    "logo": "https://www.atptour.com/assets/atpwt/images/tournament/badges/categorystamps_250.png",
+    "name": "Stuttgart 250",
+    "location": "Stuttgart, Germany",
+    "startDate": "2025-06-09",
+    "endDate": "2025-06-15",
+    "court": "Grass",
+    "points": 250,
+    "players": 28
   }
 ]

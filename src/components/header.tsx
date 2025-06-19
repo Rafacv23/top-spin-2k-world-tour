@@ -2,6 +2,8 @@ import Link from "next/link"
 import { buttonVariants } from "./ui/button"
 
 export default function Header() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <header className="flex items-center justify-between p-2 bg-card z-50 fixed top-4 left-0 right-0 border backdrop-blur-lg rounded-lg mt-4">
       <Link href={"/"} title="Top Spin 2k World Tour">
@@ -17,7 +19,7 @@ export default function Header() {
         </Link>
         <Link
           className={buttonVariants({ variant: "ghost" })}
-          href={"/tournaments"}
+          href={`/tournaments/${currentYear}`}
           title="Tournaments"
         >
           Tournaments

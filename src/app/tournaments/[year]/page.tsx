@@ -4,6 +4,13 @@ import { CardDescription, CardFooter, CardTitle } from "@/components/ui/card"
 import tournaments from "@/lib/mocks/tournaments.json"
 import { Tournament } from "@/lib/types"
 import Link from "next/link"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 function groupByMonth(tournaments: Tournament[]): Record<string, Tournament[]> {
   return tournaments.reduce<Record<string, Tournament[]>>((acc, tournament) => {
@@ -20,16 +27,31 @@ function groupByMonth(tournaments: Tournament[]): Record<string, Tournament[]> {
   }, {})
 }
 
-export default function TournamentsPage() {
+export default async function TournamentsPage({
+  params,
+}: {
+  params: Promise<{ year: string }>
+}) {
   const groupedTournaments = groupByMonth(tournaments)
+
+  const year = (await params).year
 
   return (
     <Container>
-      <h1 className="text-4xl font-bold">Tournaments</h1>
+      <h1 className="text-4xl font-bold">Tournaments {year}</h1>
       <p className="mb-6">
         Here you can find a list of all the tournaments that have been played.
         Click on a tournament to view its results.
       </p>
+      <Select>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Year" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="2025">2025</SelectItem>
+          <SelectItem value="2026">2026</SelectItem>
+        </SelectContent>
+      </Select>
       <div className="flex flex-col gap-8">
         {Object.entries(groupedTournaments).map(([month, tournaments]) => (
           <section key={month}>
