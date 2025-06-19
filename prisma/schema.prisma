@@ -1,0 +1,88 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Tournament {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  location  String
+  logo      String?     // optional URL to logo
+  surface   String      // e.g. "Grass", "Clay", "Hard"
+  startDate DateTime
+  endDate   DateTime
+  players   Int
+
+  matches   Match[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Player {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  email     String   @unique
+  country   String?
+  matchesAsPlayerOne Match[] @relation("PlayerOneMatches")
+  matchesAsPlayerTwo Match[] @relation("PlayerTwoMatches")
+  matchesWon         Match[] @relation(fields: [], references: [])
+  rankings           Ranking[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Ranking {
+  id        String   @id @default(cuid())
+  player    Player   @relation(fields: [playerId], references: [id])
+  playerId  String
+  year      Int // e.g. 2023
+  points    Int      @default(0)
+  tournaments Int @default(0) // tournaments played in the year
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+}
+
+model Match {
+  id            String   @id @default(cuid())
+  tournament    Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId  String
+
+  date          DateTime
+  round         String
+  playerOne     Player   @relation("PlayerOneMatches", fields: [playerOneId], references: [id])
+  playerOneId   String
+  playerTwo     Player   @relation("PlayerTwoMatches", fields: [playerTwoId], references: [id])
+  playerTwoId   String
+  winner        Player   @relation(fields: [winnerId], references: [id])
+  winnerId      String
+
+  sets          Set[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Set {
+  id        String   @id @default(cuid())
+  match     Match    @relation(fields: [matchId], references: [id])
+  matchId   String
+
+  number            Int    // 1 to 5
+  playerOneScore    Int
+  playerTwoScore    Int
+
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
