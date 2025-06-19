@@ -1,33 +1,23 @@
-"use client"
-
 import Container from "@/components/container"
 import { buttonVariants } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Grid2x2, Users } from "lucide-react"
 import Link from "next/link"
-import matches from "@/lib/mocks/matches.json"
 import tournaments from "@/lib/mocks/tournaments.json"
-import { groupByRound } from "@/lib/utils"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useState } from "react"
-import MatchCard from "@/components/match-card"
+import TournamentTabs from "@/components/tournament-tabs"
+import { Match } from "@/lib/types"
+import matches from "@/lib/mocks/matches.json"
 
-export default function TournamentDetailsPage({
+export default async function TournamentDetailsPage({
   params,
 }: {
-  params: { year: string; id: string }
+  params: Promise<{ year: string; id: string }>
 }) {
-  const { year, id } = params
-
-  const groupedMatches = groupByRound(matches)
+  const { year, id } = await params
 
   const tournament = tournaments.find((t) => t.id === id)
-
-  // Get all rounds
-  const rounds = Object.keys(groupedMatches)
-
-  // Default to first round
-  const [activeTab, setActiveTab] = useState(rounds[0])
-
+  const tournamentMatches: Match[] = matches.filter(
+    (m) => m.tournamentId === id
+  )
   return (
     <Container>
       <header>
@@ -60,24 +50,7 @@ export default function TournamentDetailsPage({
         </div>
       </section>
       <section id="results" className="w-full">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="flex flex-wrap gap-2 mb-4">
-            {rounds.map((round) => (
-              <TabsTrigger key={round} value={round} className="capitalize">
-                {round}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {rounds.map((round) => (
-            <TabsContent key={round} value={round}>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {groupedMatches[round].map((match) => (
-                  <MatchCard key={match.id} match={match} />
-                ))}
-              </ul>
-            </TabsContent>
-          ))}
-        </Tabs>
+        <TournamentTabs matches={tournamentMatches} />
       </section>
     </Container>
   )

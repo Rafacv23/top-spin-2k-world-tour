@@ -1,6 +1,7 @@
 import { buttonVariants } from "@/components/ui/button"
-import { REGISTER_URL } from "@/lib/constants"
+import { REGISTER_URL, SITE_NAME } from "@/lib/constants"
 import Link from "next/link"
+import GlowingTitle from "../glowing-title"
 
 export default function Hero() {
   const currentYear = new Date().getFullYear()
@@ -8,14 +9,7 @@ export default function Hero() {
   return (
     <section className="min-h-screen pt-20 flex flex-col gap-4">
       <img src="/image-bg.png" alt="logo" width={200} className="rounded-lg" />
-      <div className="flex items-center justify-center bg-background">
-        <span className="absolute mx-auto py-4 flex border w-fit bg-gradient-to-r blur-xl from-white to-primary bg-clip-text text-6xl box-content font-extrabold text-transparent text-center select-none">
-          Top Spin 2k
-        </span>
-        <h1 className="relative top-0 w-fit h-auto py-4 justify-center flex bg-gradient-to-r items-center from-white to-primary  bg-clip-text text-6xl font-extrabold text-transparent text-center select-auto">
-          Top Spin 2k World Tour
-        </h1>
-      </div>
+      <GlowingTitle>{SITE_NAME}</GlowingTitle>
       <p className="text-center text-2xl">
         Join the ultimate tennis gaming tournament and compete with players
         worldwide
