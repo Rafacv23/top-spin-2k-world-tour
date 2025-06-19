@@ -2,7 +2,6 @@ import Container from "@/components/container"
 import { buttonVariants } from "@/components/ui/button"
 import { CardDescription, CardFooter, CardTitle } from "@/components/ui/card"
 import tournaments from "@/lib/mocks/tournaments.json"
-import { Tournament } from "@/lib/types"
 import Link from "next/link"
 import {
   Select,
@@ -11,21 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-function groupByMonth(tournaments: Tournament[]): Record<string, Tournament[]> {
-  return tournaments.reduce<Record<string, Tournament[]>>((acc, tournament) => {
-    const date = new Date(tournament.startDate)
-    const monthYear = date.toLocaleString("default", {
-      month: "long",
-      year: "numeric",
-    })
-
-    if (!acc[monthYear]) acc[monthYear] = []
-    acc[monthYear].push(tournament)
-
-    return acc
-  }, {})
-}
+import { groupByMonth } from "@/lib/utils"
 
 export default async function TournamentsPage({
   params,
@@ -88,7 +73,7 @@ export default async function TournamentsPage({
                   </div>
                   <CardFooter>
                     <Link
-                      href={`/tournaments/${tournament.id}`}
+                      href={`/tournaments/2025/${tournament.id}`}
                       title="View Tournament"
                       className={buttonVariants({ variant: "outline" })}
                     >

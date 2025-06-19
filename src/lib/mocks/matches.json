@@ -1,0 +1,67 @@
+[
+  {
+    "id": "1",
+    "tournamentId": "wimbledon-2025",
+    "date": "2025-07-01",
+    "playerOne": "Rafael Nadal",
+    "playerTwo": "Novak Djokovic",
+    "round": "First Round",
+    "results": {
+      "firstSet": [4, 6],
+      "secondSet": [6, 3],
+      "thirdSet": [7, 5]
+    }
+  },
+  {
+    "id": "2",
+    "tournamentId": "wimbledon-2025",
+    "date": "2025-07-01",
+    "playerOne": "player1",
+    "playerTwo": "player2",
+    "round": "First Round",
+    "results": {
+      "firstSet": [4, 6],
+      "secondSet": [6, 3],
+      "thirdSet": [7, 5]
+    }
+  },
+  {
+    "id": "3",
+    "tournamentId": "wimbledon-2025",
+    "date": "2025-07-01",
+    "playerOne": "player1",
+    "playerTwo": "player2",
+    "round": "First Round",
+    "results": {
+      "firstSet": [4, 6],
+      "secondSet": [6, 3],
+      "thirdSet": [7, 5]
+    }
+  },
+  {
+    "id": "4",
+    "tournamentId": "wimbledon-2025",
+    "date": "2025-07-01",
+    "playerOne": "player1",
+    "playerTwo": "player2",
+    "round": "First Round",
+    "results": {
+      "firstSet": [4, 6],
+      "secondSet": [6, 3],
+      "thirdSet": [7, 5]
+    }
+  },
+  {
+    "id": "4",
+    "tournamentId": "wimbledon-2025",
+    "date": "2025-07-01",
+    "playerOne": "player1",
+    "playerTwo": "player2",
+    "round": "Second Round",
+    "results": {
+      "firstSet": [4, 6],
+      "secondSet": [6, 3],
+      "thirdSet": [7, 5]
+    }
+  }
+]
