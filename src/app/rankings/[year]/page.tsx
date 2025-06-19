@@ -10,12 +10,20 @@ import {
 } from "@/components/ui/table"
 import players from "@/lib/mocks/players.json"
 
-export default function RankingsPage() {
+export default async function RankingsPage({
+  params,
+}: {
+  params: { year: string }
+}) {
+  const year = parseInt(params.year)
+
+  // TODO fetch real rankings
+
   return (
     <Container>
       <header className="space-y-4">
         <h1 className="text-4xl font-bold">
-          Live Top Spin 2k World Tour Rankings
+          Live {year} Top Spin 2k World Tour Rankings
         </h1>
         <p className="text-lg">The rankings are updated every day.</p>
       </header>

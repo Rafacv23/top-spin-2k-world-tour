@@ -13,7 +13,7 @@ export default function Header() {
       <div>
         <Link
           className={buttonVariants({ variant: "ghost" })}
-          href={"/rankings"}
+          href={`/rankings/${currentYear}`}
           title="Live Rankings"
         >
           <Medal className="inline mr-2" />
