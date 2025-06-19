@@ -37,7 +37,23 @@ import {
   SITE_NAME,
 } from "@/lib/constants"
 import Link from "next/link"
-import { LoaderCircle, Send, SquareArrowOutUpRight } from "lucide-react"
+import {
+  Check,
+  ChevronsUpDown,
+  LoaderCircle,
+  Send,
+  SquareArrowOutUpRight,
+} from "lucide-react"
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
+import { cn } from "@/lib/utils"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "./ui/command"
 
 export default function RegisterForm() {
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false)
@@ -152,22 +168,61 @@ export default function RegisterForm() {
           control={form.control}
           name="country"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Country</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your country" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {countries.map((country) => (
-                    <SelectItem key={country.value} value={country.label}>
-                      {country.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="flex flex-col">
+              <FormLabel>Language</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className={cn(
+                        "w-[200px] justify-between",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value
+                        ? countries.find(
+                            (country) => country.value === field.value
+                          )?.label
+                        : "Select your country"}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0">
+                  <Command>
+                    <CommandInput
+                      placeholder="Search framework..."
+                      className="h-9"
+                    />
+                    <CommandList>
+                      <CommandEmpty>No country found.</CommandEmpty>
+                      <CommandGroup>
+                        {countries.map((country) => (
+                          <CommandItem
+                            value={country.label}
+                            key={country.value}
+                            onSelect={() => {
+                              form.setValue("country", country.value)
+                            }}
+                          >
+                            {country.label}
+                            <Check
+                              className={cn(
+                                "ml-auto",
+                                country.value === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
               <FormDescription>
                 Select your country for better matchmaking
               </FormDescription>
