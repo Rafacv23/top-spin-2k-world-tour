@@ -1,33 +1,33 @@
+"use client"
+
 import Container from "@/components/container"
 import { buttonVariants } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Calendar, Grid2x2, Users } from "lucide-react"
 import Link from "next/link"
 import matches from "@/lib/mocks/matches.json"
 import { groupByRound } from "@/lib/utils"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react"
+import MatchCard from "@/components/match-card"
 
-export default async function TournamentDetailsPage({
+export default function TournamentDetailsPage({
   params,
 }: {
-  params: Promise<{ year: string; id: string }>
+  params: { year: string; id: string }
 }) {
-  const { year, id } = await params
+  const { year, id } = params
 
   const groupedMatches = groupByRound(matches)
 
-  //TODO fetch tournament details based on year and id
+  // Get all rounds
+  const rounds = Object.keys(groupedMatches)
+
+  // Default to first round
+  const [activeTab, setActiveTab] = useState(rounds[0])
 
   return (
     <Container>
       <header>
-        <h1 className="text-4xl font-bold mb-4">
-          {id}, {year}
-        </h1>
         <nav>
           <Link
             href={`/tournaments/${year}`}
@@ -37,48 +37,43 @@ export default async function TournamentDetailsPage({
             Tournaments
           </Link>
         </nav>
+        <h1 className="text-4xl font-bold my-8">
+          {id}, {year}
+        </h1>
       </header>
-      <p>Details about the tournament will be displayed here.</p>
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="bg-card p-4 flex flex-col rounded-lg border w-full">
+          <Calendar size={16} />
+          <p>15th to 21st of May 2023</p>
+        </div>
+        <div className="bg-card p-4 flex flex-col  rounded-lg border w-full">
+          <Grid2x2 size={16} />
+          <p>Grass</p>
+        </div>
+        <div className="bg-card p-4 flex flex-col rounded-lg border w-full">
+          <Users size={16} />
+          <p>128 players</p>
+        </div>
+      </section>
       <section id="results" className="w-full">
-        {Object.entries(groupedMatches).map(([round, matches]) => (
-          <Accordion type="single" collapsible key={round}>
-            <AccordionItem value={`item-${round}`}>
-              <AccordionTrigger className="text-2xl font-semibold my-4">
-                {round.charAt(0).toUpperCase() + round.slice(1)}
-              </AccordionTrigger>
-              <AccordionContent>
-                <ul className="flex flex-col gap-4">
-                  {matches.map((match) => (
-                    <li
-                      key={match.id}
-                      className="flex flex-col items-center gap-4 bg-card p-4 rounded-lg border w-full"
-                    >
-                      <header className="flex flex-row items-center gap-2">
-                        <h3>{match.round}</h3> ({match.date})
-                      </header>
-                      <div className="flex flex-row items-center justify-between w-full gap-8">
-                        <h4>{match.playerOne}</h4>
-                        <div>
-                          {match.results.firstSet[0]} |{" "}
-                          {match.results.secondSet[0]} |{" "}
-                          {match.results.thirdSet[0]}
-                        </div>
-                      </div>
-                      <div className="flex flex-row items-center justify-between w-full gap-8">
-                        <h4>{match.playerTwo}</h4>
-                        <div>
-                          {match.results.firstSet[1]} |{" "}
-                          {match.results.secondSet[1]} |{" "}
-                          {match.results.thirdSet[1]}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        ))}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="flex flex-wrap gap-2 mb-4">
+            {rounds.map((round) => (
+              <TabsTrigger key={round} value={round} className="capitalize">
+                {round}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {rounds.map((round) => (
+            <TabsContent key={round} value={round}>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {groupedMatches[round].map((match) => (
+                  <MatchCard key={match.id} match={match} />
+                ))}
+              </ul>
+            </TabsContent>
+          ))}
+        </Tabs>
       </section>
     </Container>
   )

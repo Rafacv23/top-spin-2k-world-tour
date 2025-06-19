@@ -1,67 +1,80 @@
 [
   {
-    "id": "1",
+    "id": "match-1",
     "tournamentId": "wimbledon-2025",
     "date": "2025-07-01",
+    "round": "First Round",
     "playerOne": "Rafael Nadal",
     "playerTwo": "Novak Djokovic",
-    "round": "First Round",
-    "results": {
-      "firstSet": [4, 6],
-      "secondSet": [6, 3],
-      "thirdSet": [7, 5]
-    }
+    "winner": "Rafael Nadal",
+    "sets": [
+      {
+        "number": 1,
+        "playerOneScore": 4,
+        "playerTwoScore": 6
+      },
+      {
+        "number": 2,
+        "playerOneScore": 6,
+        "playerTwoScore": 3
+      },
+      {
+        "number": 3,
+        "playerOneScore": 7,
+        "playerTwoScore": 5
+      }
+    ]
   },
   {
-    "id": "2",
+    "id": "match-2",
     "tournamentId": "wimbledon-2025",
-    "date": "2025-07-01",
-    "playerOne": "player1",
-    "playerTwo": "player2",
-    "round": "First Round",
-    "results": {
-      "firstSet": [4, 6],
-      "secondSet": [6, 3],
-      "thirdSet": [7, 5]
-    }
-  },
-  {
-    "id": "3",
-    "tournamentId": "wimbledon-2025",
-    "date": "2025-07-01",
-    "playerOne": "player1",
-    "playerTwo": "player2",
-    "round": "First Round",
-    "results": {
-      "firstSet": [4, 6],
-      "secondSet": [6, 3],
-      "thirdSet": [7, 5]
-    }
-  },
-  {
-    "id": "4",
-    "tournamentId": "wimbledon-2025",
-    "date": "2025-07-01",
-    "playerOne": "player1",
-    "playerTwo": "player2",
-    "round": "First Round",
-    "results": {
-      "firstSet": [4, 6],
-      "secondSet": [6, 3],
-      "thirdSet": [7, 5]
-    }
-  },
-  {
-    "id": "4",
-    "tournamentId": "wimbledon-2025",
-    "date": "2025-07-01",
-    "playerOne": "player1",
-    "playerTwo": "player2",
+    "date": "2025-07-02",
     "round": "Second Round",
-    "results": {
-      "firstSet": [4, 6],
-      "secondSet": [6, 3],
-      "thirdSet": [7, 5]
-    }
+    "playerOne": "Carlos Alcaraz",
+    "playerTwo": "Daniil Medvedev",
+    "winner": "Carlos Alcaraz",
+    "sets": [
+      {
+        "number": 1,
+        "playerOneScore": 6,
+        "playerTwoScore": 4
+      },
+      {
+        "number": 2,
+        "playerOneScore": 3,
+        "playerTwoScore": 6
+      },
+      {
+        "number": 3,
+        "playerOneScore": 6,
+        "playerTwoScore": 3
+      }
+    ]
+  },
+  {
+    "id": "match-3",
+    "tournamentId": "wimbledon-2025",
+    "date": "2025-07-03",
+    "round": "Quarter Final",
+    "playerOne": "Rafael Nadal",
+    "playerTwo": "Carlos Alcaraz",
+    "winner": "Carlos Alcaraz",
+    "sets": [
+      {
+        "number": 1,
+        "playerOneScore": 7,
+        "playerTwoScore": 5
+      },
+      {
+        "number": 2,
+        "playerOneScore": 2,
+        "playerTwoScore": 6
+      },
+      {
+        "number": 3,
+        "playerOneScore": 3,
+        "playerTwoScore": 6
+      }
+    ]
   }
 ]

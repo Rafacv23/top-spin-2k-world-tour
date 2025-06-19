@@ -10,18 +10,16 @@ export type Tournament = {
   players: number
 }
 
+type Set = {
+  number: number
+  playerOneScore: number
+  playerTwoScore: number
+}
+
 export type Match = {
   id: string
-  tournamentId: string
   date: string
   playerOne: string
   playerTwo: string
-  round: string
-  results: {
-    firstSet: [number, number]
-    secondSet: [number, number]
-    thirdSet?: [number, number]
-    fourthSet?: [number, number]
-    fiveSet?: [number, number]
-  }
+  sets: Set[]
 }
