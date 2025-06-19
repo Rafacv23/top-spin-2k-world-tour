@@ -5,21 +5,25 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card"
+import { Calendar, Medal, Trophy } from "lucide-react"
 
 const features = [
   {
     title: "Live Rankings",
     description:
       "Rankings based on performance and statistics for all players.",
+    icon: Medal,
   },
   {
     title: "Weekly Tournaments",
     description:
       "Weekly and monthly tournaments with ranking points for all the players.",
+    icon: Calendar,
   },
   {
     title: "Major Titles",
     description: "Major title events, with extra points and more prestige.",
+    icon: Trophy,
   },
 ]
 
@@ -44,7 +48,9 @@ export default function Features() {
             <li key={feature.title}>
               <Card>
                 <CardHeader>
-                  <CardTitle>{feature.title}</CardTitle>
+                  <CardTitle>
+                    <feature.icon className="inline mr-2" /> {feature.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription>{feature.description}</CardDescription>

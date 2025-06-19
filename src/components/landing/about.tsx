@@ -7,6 +7,8 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card"
+import { INSTANT_GAMING_URL } from "@/lib/constants"
+import { Handshake, MessageCircle, ShoppingCart } from "lucide-react"
 import Link from "next/link"
 
 const links = [
@@ -14,19 +16,25 @@ const links = [
     name: "Reddit",
     description:
       "Rankings based on performance and statistics for all players.",
-    href: "/register",
+    href: "https://www.reddit.com/r/TopSpin2k25WorldTour/",
+    button: "Share your ranking",
+    icon: MessageCircle,
   },
   {
     name: "Instant Gaming",
     description:
       "Rankings based on performance and statistics for all players.",
-    href: "/register",
+    href: INSTANT_GAMING_URL,
+    button: "Buy games",
+    icon: ShoppingCart,
   },
   {
     name: "Invite",
     description:
       "Rankings based on performance and statistics for all players.",
-    href: "/register",
+    href: "/",
+    button: "Invite friends",
+    icon: Handshake,
   },
 ]
 
@@ -61,7 +69,8 @@ export default function About() {
                     href={link.href}
                     className={buttonVariants({ variant: "outline" })}
                   >
-                    Join
+                    <link.icon className="inline mr-2" />
+                    {link.button}
                   </Link>
                 </CardFooter>
               </Card>

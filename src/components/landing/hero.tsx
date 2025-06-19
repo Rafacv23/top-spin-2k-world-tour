@@ -2,6 +2,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { SITE_NAME } from "@/lib/constants"
 import Link from "next/link"
 import GlowingTitle from "../glowing-title"
+import { Trophy, UserRoundPlus } from "lucide-react"
 
 export default function Hero() {
   const currentYear = new Date().getFullYear()
@@ -19,12 +20,14 @@ export default function Hero() {
           href={"/register"}
           className={buttonVariants({ variant: "default" })}
         >
+          <UserRoundPlus className="inline mr-2" />
           Register
         </Link>
         <Link
           href={`/tournaments/${currentYear}`}
           className={buttonVariants({ variant: "outline" })}
         >
+          <Trophy className="inline mr-2" />
           Next Tournaments
         </Link>
       </footer>

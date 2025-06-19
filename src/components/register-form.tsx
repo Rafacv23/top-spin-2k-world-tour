@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Form,
@@ -23,15 +23,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { Platforms, TypePlayer } from "@prisma/client"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { AvailabilityDays } from "@prisma/client"
 import { registerNewPlayer } from "@/lib/actions"
 import { toast } from "sonner"
+import {
+  DISCORD_URL,
+  INSTAGRAM_URL,
+  INSTANT_GAMING_URL,
+  SITE_NAME,
+} from "@/lib/constants"
+import Link from "next/link"
+import { LoaderCircle, Send, SquareArrowOutUpRight } from "lucide-react"
 
 export default function RegisterForm() {
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -51,14 +62,22 @@ export default function RegisterForm() {
   const countries = useMemo(() => countryList().getData(), [])
 
   async function clientAction(values: z.infer<typeof registerSchema>) {
+    setIsLoading(true)
     try {
       const response = await registerNewPlayer(values)
       toast.success(response.message)
       form.reset()
+      setFormSubmitted(true)
     } catch (error) {
       console.log(error)
       toast.error("Something went wrong while registering. Try again later.")
+    } finally {
+      setIsLoading(false)
     }
+  }
+
+  if (formSubmitted) {
+    return <Confirmation />
   }
 
   return (
@@ -318,8 +337,62 @@ export default function RegisterForm() {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <LoaderCircle size={16} className="animate-spin" /> Submitting
+            </span>
+          ) : (
+            <span className="flex items-center gap-2">
+              <Send size={16} /> Submit
+            </span>
+          )}
+        </Button>
       </form>
     </Form>
+  )
+}
+
+const links = [
+  {
+    title: "Discord",
+    href: DISCORD_URL,
+  },
+  {
+    title: "Instagram",
+    href: INSTAGRAM_URL,
+  },
+  {
+    title: "Instant Gaming",
+    href: INSTANT_GAMING_URL,
+  },
+]
+
+function Confirmation() {
+  return (
+    <div className="space-y-8 bg-card p-4 py-8 rounded-lg border shadow grid grid-cols-1 gap-4">
+      <h3 className="text-2xl font-bold">Thank you for registering!</h3>
+      <p>Welcome to the {SITE_NAME} community!</p>
+      <p>
+        You can explore the site and find more information about the
+        tournaments. Or find us in our socials to start your career.
+      </p>
+      <div>
+        <ul className="grid grid-cols-3 gap-4 items-center">
+          {links.map((link) => (
+            <li key={link.title} className="flex items-center gap-2">
+              <Link
+                href={link.href}
+                className={buttonVariants({ variant: "default" })}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {link.title} <SquareArrowOutUpRight size={16} />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   )
 }

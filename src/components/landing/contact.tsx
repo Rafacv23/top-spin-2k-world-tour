@@ -7,6 +7,8 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card"
+import { DISCORD_URL } from "@/lib/constants"
+import { Info, Mail, Speech } from "lucide-react"
 import Link from "next/link"
 
 const links = [
@@ -14,19 +16,25 @@ const links = [
     name: "Mail",
     description:
       "Rankings based on performance and statistics for all players.",
-    href: "/register",
+    href: "emailto:rafatriedcoding@gmail.com",
+    button: "Send Email",
+    icon: Mail,
   },
   {
     name: "Discord",
     description:
       "Rankings based on performance and statistics for all players.",
-    href: "/register",
+    href: DISCORD_URL,
+    button: "Join our Server",
+    icon: Speech,
   },
   {
     name: "About",
     description:
       "Rankings based on performance and statistics for all players.",
-    href: "/register",
+    href: "/about",
+    button: "Learn More",
+    icon: Info,
   },
 ]
 
@@ -59,9 +67,13 @@ export default function Contact() {
                 <CardFooter>
                   <Link
                     href={link.href}
+                    title={link.button}
+                    target="_blank"
+                    rel="noreferrer"
                     className={buttonVariants({ variant: "outline" })}
                   >
-                    Join
+                    <link.icon className="inline mr-2" />
+                    {link.button}
                   </Link>
                 </CardFooter>
               </Card>

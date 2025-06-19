@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { buttonVariants } from "./ui/button"
+import { Medal, Trophy, UserRoundPlus } from "lucide-react"
 
 export default function Header() {
   const currentYear = new Date().getFullYear()
@@ -15,6 +16,7 @@ export default function Header() {
           href={"/rankings"}
           title="Live Rankings"
         >
+          <Medal className="inline mr-2" />
           Rankings
         </Link>
         <Link
@@ -22,6 +24,7 @@ export default function Header() {
           href={`/tournaments/${currentYear}`}
           title="Tournaments"
         >
+          <Trophy className="inline mr-2" />
           Tournaments
         </Link>
       </div>
@@ -31,6 +34,7 @@ export default function Header() {
           href={"/register"}
           title="Register new player"
         >
+          <UserRoundPlus className="inline mr-2" />
           Register
         </Link>
       </div>
