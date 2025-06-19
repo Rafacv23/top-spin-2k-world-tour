@@ -5,6 +5,7 @@ export type Tournament = {
   location: string
   startDate: string
   endDate: string
+  year: number
   court: string
   points: number
   players: number

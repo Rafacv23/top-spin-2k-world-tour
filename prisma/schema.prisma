@@ -51,6 +51,7 @@ model Tournament {
   surface   TournamentSurface      // e.g. "Grass", "Clay", "Hard"
   startDate DateTime
   endDate   DateTime
+  year      Int // e.g. 2023
   players   Int?
 
   matches   Match[]
