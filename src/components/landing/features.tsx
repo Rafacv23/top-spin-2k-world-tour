@@ -6,6 +6,23 @@ import {
   CardDescription,
 } from "@/components/ui/card"
 
+const features = [
+  {
+    title: "Live Rankings",
+    description:
+      "Rankings based on performance and statistics for all players.",
+  },
+  {
+    title: "Weekly Tournaments",
+    description:
+      "Weekly and monthly tournaments with ranking points for all the players.",
+  },
+  {
+    title: "Major Titles",
+    description: "Major title events, with extra points and more prestige.",
+  },
+]
+
 export default function Features() {
   return (
     <section id="features" className="h-screen pt-20 flex flex-col gap-4">
@@ -22,44 +39,19 @@ export default function Features() {
         rankings based on performance and statistics for all players.
       </p>
       <footer className="mt-4">
-        <ul className="flex items-center justify-center gap-4">
-          <li>
-            <Card>
-              <CardHeader>
-                <CardTitle>Live Rankings</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Rankings based on performance and statistics for all players.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </li>
-          <li>
-            <Card>
-              <CardHeader>
-                <CardTitle>Weekly Tournaments</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Weekly and monthly tournaments with ranking points for all the
-                  players.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </li>
-          <li>
-            <Card>
-              <CardHeader>
-                <CardTitle>Major Titles</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Major title events, with extra points and more prestige.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </li>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {features.map((feature) => (
+            <li key={feature.title}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>{feature.description}</CardDescription>
+                </CardContent>
+              </Card>
+            </li>
+          ))}
         </ul>
       </footer>
     </section>

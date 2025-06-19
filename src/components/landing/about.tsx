@@ -9,6 +9,27 @@ import {
 } from "@/components/ui/card"
 import Link from "next/link"
 
+const links = [
+  {
+    name: "Reddit",
+    description:
+      "Rankings based on performance and statistics for all players.",
+    href: "/register",
+  },
+  {
+    name: "Instant Gaming",
+    description:
+      "Rankings based on performance and statistics for all players.",
+    href: "/register",
+  },
+  {
+    name: "Invite",
+    description:
+      "Rankings based on performance and statistics for all players.",
+    href: "/register",
+  },
+]
+
 export default function About() {
   return (
     <section id="about" className="h-screen pt-20 flex flex-col gap-4">
@@ -25,69 +46,27 @@ export default function About() {
         and get ready to climb the ranks.
       </p>
       <footer className="mt-4">
-        <ul className="flex items-center justify-center gap-4">
-          <li>
-            <Card>
-              <CardHeader>
-                <CardTitle>Reddit</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Rankings based on performance and statistics for all players.
-                </CardDescription>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  href={"/register"}
-                  className={buttonVariants({ variant: "outline" })}
-                >
-                  Join
-                </Link>
-              </CardFooter>
-            </Card>
-          </li>
-          <li>
-            <Card>
-              <CardHeader>
-                <CardTitle>Instant Gaming</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Rankings based on performance and statistics for all players.
-                </CardDescription>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  href={"/register"}
-                  className={buttonVariants({
-                    variant: "outline",
-                  })}
-                >
-                  Join
-                </Link>
-              </CardFooter>
-            </Card>
-          </li>
-          <li>
-            <Card>
-              <CardHeader>
-                <CardTitle>Invite</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Rankings based on performance and statistics for all players.
-                </CardDescription>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  href={"/register"}
-                  className={buttonVariants({ variant: "outline" })}
-                >
-                  Join
-                </Link>
-              </CardFooter>
-            </Card>
-          </li>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {links.map((link) => (
+            <li key={link.name}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>{link.name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>{link.description}</CardDescription>
+                </CardContent>
+                <CardFooter>
+                  <Link
+                    href={link.href}
+                    className={buttonVariants({ variant: "outline" })}
+                  >
+                    Join
+                  </Link>
+                </CardFooter>
+              </Card>
+            </li>
+          ))}
         </ul>
       </footer>
     </section>
