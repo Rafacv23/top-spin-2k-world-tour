@@ -42,6 +42,7 @@ export async function registerNewPlayer(
       message: "Successfully registered new player",
     }
   } catch (error) {
+    console.error(error)
     return {
       status: 400,
       message: "Error registering new player",
