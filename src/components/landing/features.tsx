@@ -46,7 +46,7 @@ export default function Features() {
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {features.map((feature) => (
             <li key={feature.title}>
-              <Card>
+              <Card className="h-full">
                 <CardHeader>
                   <CardTitle>
                     <feature.icon className="inline mr-2" /> {feature.title}
