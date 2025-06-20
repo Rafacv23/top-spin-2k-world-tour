@@ -446,7 +446,7 @@ function Confirmation() {
         tournaments. Or find us in our socials to start your career.
       </p>
       <div>
-        <ul className="grid grid-cols-3 gap-4 items-center">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-center">
           {links.map((link) => (
             <li key={link.title} className="flex items-center gap-2">
               <Link
