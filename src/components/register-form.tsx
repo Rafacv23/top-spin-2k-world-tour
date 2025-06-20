@@ -81,12 +81,22 @@ export default function RegisterForm() {
     setIsLoading(true)
     try {
       const response = await registerNewPlayer(values)
+
+      if (response.status !== 200) {
+        toast.error(response.message)
+        throw new Error(response.message || "Failed to register")
+      }
+
       toast.success(response.message)
       form.reset()
       setFormSubmitted(true)
     } catch (error) {
-      console.log(error)
-      toast.error("Something went wrong while registering. Try again later.")
+      console.error(error)
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while registering. Try again later."
+      )
     } finally {
       setIsLoading(false)
     }
@@ -182,11 +192,7 @@ export default function RegisterForm() {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        {field.value
-                          ? countries.find(
-                              (country) => country.value === field.value
-                            )?.label
-                          : "Select your country"}
+                        {field.value ? field.value : "Select your country"}
                         <ChevronsUpDown className="opacity-50" />
                       </Button>
                     </FormControl>
@@ -194,7 +200,7 @@ export default function RegisterForm() {
                   <PopoverContent className="p-0">
                     <Command>
                       <CommandInput
-                        placeholder="Search framework..."
+                        placeholder="Search country..."
                         className="h-9"
                       />
                       <CommandList>
