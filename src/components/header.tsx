@@ -16,7 +16,7 @@ export default function Header() {
           href={`/rankings/${currentYear}`}
           title="Live Rankings"
         >
-          <Medal className="inline mr-2" />
+          <Medal className="hidden mr-2 invisible md:visible" />
           Rankings
         </Link>
         <Link
@@ -24,7 +24,7 @@ export default function Header() {
           href={`/tournaments/${currentYear}`}
           title="Tournaments"
         >
-          <Trophy className="inline mr-2" />
+          <Trophy className="hidden mr-2 invisible md:visible" />
           Tournaments
         </Link>
       </div>
@@ -34,7 +34,7 @@ export default function Header() {
           href={"/register"}
           title="Register new player"
         >
-          <UserRoundPlus className="inline mr-2" />
+          <UserRoundPlus className="hidden mr-2 invisible md:visible" />
           Register
         </Link>
       </div>

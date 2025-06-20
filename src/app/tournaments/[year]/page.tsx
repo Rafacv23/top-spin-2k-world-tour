@@ -24,7 +24,10 @@ export default async function TournamentsPage({
   }
 
   // Ensure type is Tournament[]
-  const tournaments = response.data as Tournament[]
+  const tournaments = response.data.map((tournament) => ({
+    ...tournament,
+    year: parsedYear,
+  })) as Tournament[]
   const groupedTournaments = groupByMonth(tournaments)
 
   return (
