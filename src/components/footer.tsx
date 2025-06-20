@@ -1,4 +1,5 @@
-import Image from "next/image"
+import { DISCORD_URL, GITHUB_URL } from "@/lib/constants"
+import { Github, Info, Speech } from "lucide-react"
 import Link from "next/link"
 
 export default function Footer() {
@@ -7,34 +8,31 @@ export default function Footer() {
       <nav className="flex flex-row justify-between items-center w-full mb-8">
         <Link
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href={"/contact"}
+          href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Contact
+          <Github size={16} />
+          GitHub
+        </Link>
+        <Link
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href={DISCORD_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Speech size={16} />
+          Discord
         </Link>
         <Link
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="/about"
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
+          <Info size={16} />
           About us
         </Link>
       </nav>
-      <p className="text-foreground/60">
+      <p className="text-foreground/60 text-sm">
         {new Date().getFullYear()} Top Spin 2k World Tour
       </p>
     </footer>
