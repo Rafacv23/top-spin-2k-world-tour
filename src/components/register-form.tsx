@@ -102,180 +102,187 @@ export default function RegisterForm() {
         onSubmit={form.handleSubmit(clientAction)}
         className="space-y-8 bg-card p-4 rounded-lg border shadow grid grid-cols-1 gap-4"
       >
-        <FormField
-          control={form.control}
-          name="discordId"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Discord ID</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  required
-                  autoComplete="off"
-                  aria-label="Discord Id"
-                  placeholder="Your Discord ID"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>Discord ID for communication</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="id2k"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>2K ID</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  required
-                  autoComplete="off"
-                  aria-label="2k Id"
-                  placeholder="Your 2K ID"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>2K ID for matchmaking</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Real Name (optional)</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  autoComplete="off"
-                  aria-label="Real name or gamertag"
-                  placeholder="Your real name or gamertag"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>Helps us know you better</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="country"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Country</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "w-[200px] justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value
-                        ? countries.find(
-                            (country) => country.value === field.value
-                          )?.label
-                        : "Select your country"}
-                      <ChevronsUpDown className="opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                  <Command>
-                    <CommandInput
-                      placeholder="Search framework..."
-                      className="h-9"
-                    />
-                    <CommandList>
-                      <CommandEmpty>No country found.</CommandEmpty>
-                      <CommandGroup>
-                        {countries.map((country) => (
-                          <CommandItem
-                            value={country.label}
-                            key={country.value}
-                            onSelect={() => {
-                              form.setValue("country", country.label)
-                            }}
-                          >
-                            {country.label}
-                            <Check
-                              className={cn(
-                                "ml-auto",
-                                country.value === field.value
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              )}
-                            />
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              <FormDescription>
-                Select your country for better matchmaking
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="platform"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Platform</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <div className="grid md:grid-cols-2 w-full gap-8">
+          <FormField
+            control={form.control}
+            name="discordId"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Discord ID</FormLabel>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Platform" />
-                  </SelectTrigger>
+                  <Input
+                    type="text"
+                    required
+                    autoComplete="off"
+                    aria-label="Discord Id"
+                    placeholder="Your Discord ID"
+                    {...field}
+                  />
                 </FormControl>
-                <SelectContent>
-                  {Object.entries(Platforms).map(([key, value]) => (
-                    <SelectItem key={key} value={value}>
-                      {value}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormDescription>Select the platform you play on</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  required
-                  autoComplete="off"
-                  aria-label="Your email"
-                  placeholder="example@example.com"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>Your email for communication</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormDescription>Discord ID for communication</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="id2k"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>2K ID</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    required
+                    autoComplete="off"
+                    aria-label="2k Id"
+                    placeholder="Your 2K ID"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>2K ID for matchmaking</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Real Name (optional)</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    autoComplete="off"
+                    aria-label="Real name or gamertag"
+                    placeholder="Your real name or gamertag"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>Helps us know you better</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Country</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn(
+                          "justify-between w-full",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value
+                          ? countries.find(
+                              (country) => country.value === field.value
+                            )?.label
+                          : "Select your country"}
+                        <ChevronsUpDown className="opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="p-0">
+                    <Command>
+                      <CommandInput
+                        placeholder="Search framework..."
+                        className="h-9"
+                      />
+                      <CommandList>
+                        <CommandEmpty>No country found.</CommandEmpty>
+                        <CommandGroup>
+                          {countries.map((country) => (
+                            <CommandItem
+                              value={country.label}
+                              key={country.value}
+                              onSelect={() => {
+                                form.setValue("country", country.label)
+                              }}
+                            >
+                              {country.label}
+                              <Check
+                                className={cn(
+                                  "ml-auto",
+                                  country.value === field.value
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                                )}
+                              />
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <FormDescription>
+                  Select your country for better matchmaking
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="platform"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Platform</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl className="w-full">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Platform" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {Object.entries(Platforms).map(([key, value]) => (
+                      <SelectItem key={key} value={value}>
+                        {value}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormDescription>
+                  Select the platform you play on
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    required
+                    autoComplete="off"
+                    aria-label="Your email"
+                    placeholder="example@example.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>Your email for communication</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="experience"
@@ -286,7 +293,7 @@ export default function RegisterForm() {
                 <RadioGroup
                   onValueChange={(value) => field.onChange(value === "true")}
                   defaultValue={String(field.value)}
-                  className="flex flex-col"
+                  className="flex flex-row gap-4"
                 >
                   <FormItem className="flex items-center gap-3">
                     <FormControl>
@@ -311,7 +318,7 @@ export default function RegisterForm() {
           <FormLabel>
             Availability to play games (Select one or more days)
           </FormLabel>
-          <div className="grid grid-cols-2 mt-4 gap-2">
+          <div className="flex flex-wrap mt-4 gap-4">
             {Object.values(AvailabilityDays).map((day) => (
               <FormField
                 key={day}
@@ -351,7 +358,7 @@ export default function RegisterForm() {
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="flex flex-col"
+                  className="flex flex-row gap-4"
                 >
                   <FormItem className="flex items-center gap-3">
                     <FormControl>
@@ -392,7 +399,7 @@ export default function RegisterForm() {
           )}
         />
 
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading} className="w-full">
           {isLoading ? (
             <span className="flex items-center gap-2">
               <LoaderCircle size={16} className="animate-spin" /> Submitting
