@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   authors: { name: "Rafa Canosa", url: "https://rafacanosa.dev" },
   metadataBase: new URL(SITE_URL),
   category: "Games",
+  verification: {
+    google: "8Ssu9wyMqGLnOHp01rAbY2QJAKTU4XkqTq9OPShpeOc",
+  },
   openGraph: {
     type: "website",
     url: SITE_URL,
