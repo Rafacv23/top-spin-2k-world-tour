@@ -8,7 +8,7 @@ export default function Hero() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <section className="min-h-screen pt-20 flex flex-col gap-4">
+    <section className="min-h-screen py-20 flex flex-col gap-4">
       <img src="/image-bg.png" alt="logo" width={200} className="rounded-lg" />
       <GlowingTitle>{SITE_NAME}</GlowingTitle>
       <p className="text-center text-2xl">
