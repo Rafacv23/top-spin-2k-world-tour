@@ -10,3 +10,4 @@ export const SITE_DESCRIPTION =
   "Top Spin 2k World Tour is a community-driven project to bring back the classic tennis game Top Spin 2k25 with modern features and online multiplayer."
 
 export const GITHUB_URL = "https://github.com/Rafacv23/top-spin-2k-world-tour"
+export const SITE_URL = "https://top-spin-2k-world-tour.vercel.app/"
