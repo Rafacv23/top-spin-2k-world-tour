@@ -1,5 +1,6 @@
 import Container from "@/components/container"
 import RankingsTable from "@/components/rankings-table"
+import RankingsTableSkeleton from "@/components/skeletons/rankings-table-sekeleton"
 import { Suspense } from "react"
 
 export default async function RankingsPage({
@@ -18,7 +19,7 @@ export default async function RankingsPage({
         <p className="text-lg">The rankings are updated every day.</p>
       </header>
       <div className="bg-card/30 backdrop-blur-2xl p-4 w-full rounded-lg border border-primary/10">
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<RankingsTableSkeleton />}>
           <RankingsTable year={year} />
         </Suspense>
       </div>
