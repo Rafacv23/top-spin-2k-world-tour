@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,6 +6,100 @@ datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+}
+
+model Tournament {
+  id        String            @id @default(cuid())
+  name      String
+  location  String
+  logo      String
+  startDate DateTime
+  endDate   DateTime
+  players   Int?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @default(now()) @updatedAt
+  surface   TournamentSurface
+  year      Int
+  points    Int?
+  matches   Match[]
+}
+
+model Player {
+  id          String  @id @default(uuid()) @unique  
+  name               String?            @unique
+  country            String
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt @default(now())
+  email              String             @unique
+  availability       AvailabilityDays[]
+  discord            String             @unique
+  experience         Boolean
+  id2k               String             @unique
+  platform           Platforms
+  playerChoice       TypePlayer
+  policy             Boolean
+  matchesAsPlayerOne Match[]            @relation("PlayerOneMatches")
+  matchesAsPlayerTwo Match[]            @relation("PlayerTwoMatches")
+  matchesWon         Match[]
+  rankings           Ranking[]
+}
+
+model Ranking {
+  id          String  @id @default(uuid()) @unique  
+  playerId    String
+  year        Int
+  points      Int      @default(0)
+  tournaments Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  player      Player   @relation(fields: [playerId], references: [id])
+}
+
+model Match {
+  id          String  @id @default(uuid()) @unique
+  tournamentId String
+  date         DateTime
+  round        TournamentRound
+  playerOneId  String
+  playerTwoId  String
+  winnerId     String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @default(now()) @updatedAt
+  playerOne    Player     @relation("PlayerOneMatches", fields: [playerOneId], references: [id])
+  playerTwo    Player     @relation("PlayerTwoMatches", fields: [playerTwoId], references: [id])
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+  winner       Player?    @relation(fields: [winnerId], references: [id], onDelete: Restrict)
+  sets         Set[]
+}
+
+model Set {
+  id             String  @id @default(uuid()) @unique
+  matchId        String @unique
+  number         SetNumber
+  playerOneScore Int  @default(0)
+  playerTwoScore Int  @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt @default(now())
+  match          Match    @relation(fields: [matchId], references: [id])
+}
+
+model Admin {
+  id          String  @id @default(uuid()) @unique  
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  role      Roles
+  updatedAt DateTime @updatedAt
+}
+
+enum TournamentRound {
+  FIRST_ROUND
+  SECOND_ROUND
+  THIRD_ROUND
+  ROUND_OF_16
+  QUARTER_FINALS
+  SEMI_FINALS
+  FINAL
 }
 
 enum Platforms {
@@ -31,9 +124,9 @@ enum TypePlayer {
 }
 
 enum Roles {
-  ADMIN // all crud options
-  TOURNAMENT_ORGANIZER // update and read options
-  REFEREE // only read options
+  ADMIN
+  TOURNAMENT_ORGANIZER
+  REFEREE
 }
 
 enum TournamentSurface {
@@ -43,90 +136,10 @@ enum TournamentSurface {
   INDOOR
 }
 
-model Tournament {
-  id        String   @id @default(cuid())
-  name      String
-  location  String
-  logo      String     // optional URL to logo
-  surface   TournamentSurface      // e.g. "Grass", "Clay", "Hard"
-  startDate DateTime
-  endDate   DateTime
-  year      Int // e.g. 2023
-  players   Int?
-  points    Int? // points awarded to the winner
-
-  matches   Match[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
-}
-
-model Player {
-  id        String   @id @default(cuid())
-  discord   String   @unique
-  id2k      String   @unique  // 2k id account
-  name      String?  @unique  //real name or gamertag
-  country   String
-  platform  Platforms // platform the player is playing on
-  email     String   @unique
-  experience  Boolean // true if player has played in a tournament
-  availability AvailabilityDays[]  // days of the week the player is available
-  playerChoice TypePlayer // whether the player is a real player or a MyPlayer
-  policy Boolean // whether the player has accepted the tournament policy
-  matchesAsPlayerOne Match[] @relation("PlayerOneMatches")
-  matchesAsPlayerTwo Match[] @relation("PlayerTwoMatches")
-  matchesWon         Match[] @relation(fields: [], references: [])
-  rankings           Ranking[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Ranking {
-  id        String   @id @default(cuid())
-  player    Player   @relation(fields: [playerId], references: [id])
-  playerId  String
-  year      Int // e.g. 2023
-  points    Int      @default(0)
-  tournaments Int @default(0) // tournaments played in the year
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt 
-}
-
-model Match {
-  id            String   @id @default(cuid())
-  tournament    Tournament @relation(fields: [tournamentId], references: [id])
-  tournamentId  String
-
-  date          DateTime
-  round         String
-  playerOne     Player   @relation("PlayerOneMatches", fields: [playerOneId], references: [id])
-  playerOneId   String
-  playerTwo     Player   @relation("PlayerTwoMatches", fields: [playerTwoId], references: [id])
-  playerTwoId   String
-  winner        Player   @relation(fields: [winnerId], references: [id])
-  winnerId      String
-
-  sets          Set[]
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-model Set {
-  id        String   @id @default(cuid())
-  match     Match    @relation(fields: [matchId], references: [id])
-  matchId   String
-
-  number            Int    // 1 to 5 total sets of the game
-  playerOneScore    Int    // games won by player one from 0 to 7
-  playerTwoScore    Int
-
-  createdAt DateTime @default(now())
-}
-
-model Admin {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  role      Roles
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum SetNumber {
+  SET_ONE
+  SET_TWO
+  SET_THREE
+  SET_FOUR
+  SET_FIVE
 }
