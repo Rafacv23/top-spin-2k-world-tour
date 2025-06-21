@@ -3,8 +3,8 @@
 import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import MatchCard from "@/components/match-card"
-import { Match } from "@/lib/types"
 import { groupByRound } from "@/lib/utils"
+import { Match } from "@prisma/client"
 
 export default function TournamentTabs({ matches }: { matches: Match[] }) {
   const groupedMatches = groupByRound(matches)

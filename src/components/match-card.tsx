@@ -1,16 +1,16 @@
 import { whoWinsTheSet } from "@/lib/utils"
-import { Match } from "@/lib/types"
+import { Match } from "@prisma/client"
 
 export default function MatchCard({ match }: { match: Match }) {
   return (
     <li className="flex flex-col items-center gap-4 bg-card p-4 rounded-lg border w-full">
       <header className="flex flex-row items-center gap-2">
-        <h3>{match.date}</h3>
+        <h3>{match.date.toString()}</h3>
       </header>
 
       {/* Player One */}
       <div className="flex flex-row items-center justify-between w-full gap-8">
-        <h4>{match.playerOne}</h4>
+        <h4>{match.playerOneId}</h4>
         <div className="flex flex-row gap-2">
           {match.sets.map((set, idx) => {
             const winner = whoWinsTheSet(set.playerOneScore, set.playerTwoScore)
@@ -32,7 +32,7 @@ export default function MatchCard({ match }: { match: Match }) {
 
       {/* Player Two */}
       <div className="flex flex-row items-center justify-between w-full gap-8">
-        <h4>{match.playerTwo}</h4>
+        <h4>{match.playerTwoId}</h4>
         <div className="flex flex-row gap-2">
           {match.sets.map((set, idx) => {
             const winner = whoWinsTheSet(set.playerOneScore, set.playerTwoScore)

@@ -17,7 +17,7 @@ type TournamentCardProps = {
 }
 export default function TournamentCard({ tournament }: TournamentCardProps) {
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <img
           src={tournament.logo}

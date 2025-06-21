@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { Match, PrismaClient, Tournament } from "@prisma/client"
 import { redirect } from "next/navigation"
 
 const prisma = new PrismaClient()
@@ -56,7 +56,7 @@ export async function getTournamentsByYear(year: number) {
   try {
     const tournaments = await prisma.tournament.findMany({
       where: { year },
-      orderBy: { startDate: "desc" },
+      orderBy: { startDate: "asc" },
       select: {
         id: true,
         name: true,
@@ -88,6 +88,52 @@ export async function getTournamentsByYear(year: number) {
       status: 500,
       message: "Error retrieving tournaments",
       error: error instanceof Error ? error.message : error,
+    }
+  }
+}
+
+
+interface TournamentWithMatchesResponse {
+  status: number
+  message: string
+  data?: Tournament & { matches: Match[] }
+  error?: string
+}
+
+export async function getTournamentById(id: string): Promise<TournamentWithMatchesResponse> {
+
+  if (!id) {
+    return {
+      status: 400,
+      message: "Tournament ID is required",
+    }
+  }
+
+  try {
+    const tournament = await prisma.tournament.findUnique({
+      where: { id },
+      include: {
+        matches: true,
+      },
+    })
+
+    if (!tournament) {
+      return {
+        status: 404,
+        message: "No tournament found with the specified id",
+      }
+    }
+
+    return {
+      status: 200,
+      message: "Successfully retrieved tournament",
+      data: tournament,
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      message: "Error retrieving tournament",
+      error: error instanceof Error ? error.message : String(error),
     }
   }
 }

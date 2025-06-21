@@ -33,7 +33,7 @@ export default async function TournamentsList({ year }: Props) {
           <h2 className="text-2xl font-semibold mb-4">
             {month.charAt(0).toUpperCase() + month.slice(1)}
           </h2>
-          <ul className="grid grid-cols-1 gap-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {tournaments.map((tournament) => (
               <li key={tournament.id} className="w-full">
                 <TournamentCard tournament={tournament} />

@@ -2,10 +2,8 @@ import Container from "@/components/container"
 import { buttonVariants } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Grid2x2, Users } from "lucide-react"
 import Link from "next/link"
-import tournaments from "@/lib/mocks/tournaments.json"
 import TournamentTabs from "@/components/tournament-tabs"
-import { Match } from "@/lib/types"
-import matches from "@/lib/mocks/matches.json"
+import { getTournamentById } from "@/lib/queries"
 
 export default async function TournamentDetailsPage({
   params,
@@ -14,10 +12,27 @@ export default async function TournamentDetailsPage({
 }) {
   const { year, id } = await params
 
-  const tournament = tournaments.find((t) => t.id === id)
-  const tournamentMatches: Match[] = matches.filter(
+  const tournament = await getTournamentById(id).then((res) => res.data)
+
+  console.log(tournament)
+
+  if (!tournament) {
+    return (
+      <Container>
+        <h1 className="text-4xl font-bold">Tournament {year}</h1>
+        <p className="w-full bg-card p-8 rounded-lg border mt-8">
+          Failed to load tournament.
+        </p>
+      </Container>
+    )
+  }
+
+  const tournamentMatches = tournament.matches.filter(
     (m) => m.tournamentId === id
   )
+
+  console.log(tournamentMatches)
+
   return (
     <Container>
       <header>
@@ -30,28 +45,46 @@ export default async function TournamentDetailsPage({
             Tournaments
           </Link>
         </nav>
-        <img src={tournament?.logo} alt={tournament?.name} className="w-24" />
         <h1 className="text-4xl font-bold my-8">
           {tournament?.name} {year}
         </h1>
+        <img
+          src={tournament?.logo}
+          alt={tournament?.name}
+          className="rounded-lg w-full h-64 object-cover mb-4"
+        />
       </header>
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <div className="bg-card p-4 flex flex-col rounded-lg border w-full">
           <Calendar size={16} />
-          <p>15th to 21st of May 2023</p>
+          <p>
+            From {tournament?.startDate.toLocaleDateString()} to{" "}
+            {tournament?.endDate.toLocaleDateString()}
+          </p>
         </div>
         <div className="bg-card p-4 flex flex-col  rounded-lg border w-full">
           <Grid2x2 size={16} />
-          <p>Grass</p>
+          <p>{tournament?.surface} surface</p>
         </div>
-        <div className="bg-card p-4 flex flex-col rounded-lg border w-full">
-          <Users size={16} />
-          <p>128 players</p>
-        </div>
+        {tournament.players && (
+          <div className="bg-card p-4 flex flex-col rounded-lg border w-full">
+            <Users size={16} />
+            <p>128 players</p>
+          </div>
+        )}
       </section>
-      <section id="results" className="w-full">
-        <TournamentTabs matches={tournamentMatches} />
-      </section>
+      {tournamentMatches.length <= 0 ? (
+        <section
+          id="results"
+          className="w-full bg-card p-8 rounded-lg border mt-8"
+        >
+          <p>No order of play yet. Come back later.</p>
+        </section>
+      ) : (
+        <section id="results" className="w-full">
+          <TournamentTabs matches={tournamentMatches} />
+        </section>
+      )}
     </Container>
   )
 }
