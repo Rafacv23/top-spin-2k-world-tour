@@ -14,8 +14,6 @@ export default async function TournamentDetailsPage({
 
   const tournament = await getTournamentById(id).then((res) => res.data)
 
-  console.log(tournament)
-
   if (!tournament) {
     return (
       <Container>
@@ -30,8 +28,6 @@ export default async function TournamentDetailsPage({
   const tournamentMatches = tournament.matches.filter(
     (m) => m.tournamentId === id
   )
-
-  console.log(tournamentMatches)
 
   return (
     <Container>

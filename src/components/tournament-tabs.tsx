@@ -1,12 +1,16 @@
 "use client"
 
-import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import MatchCard from "@/components/match-card"
 import { groupByRound } from "@/lib/utils"
-import { Match } from "@prisma/client"
+import { Match, Set } from "@prisma/client"
+import { useState } from "react"
 
-export default function TournamentTabs({ matches }: { matches: Match[] }) {
+interface TournamentTabsProps {
+  matches: Match[] & { sets: Set[] }
+}
+
+export default function TournamentTabs({ matches }: TournamentTabsProps) {
   const groupedMatches = groupByRound(matches)
   const rounds = Object.keys(groupedMatches)
   const [activeTab, setActiveTab] = useState(rounds[0])

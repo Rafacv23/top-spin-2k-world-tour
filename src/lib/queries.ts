@@ -113,8 +113,12 @@ export async function getTournamentById(id: string): Promise<TournamentWithMatch
     const tournament = await prisma.tournament.findUnique({
       where: { id },
       include: {
-        matches: true,
-      },
+        matches: {
+          include: {
+            sets: true,
+          }
+        },
+      }
     })
 
     if (!tournament) {
@@ -133,6 +137,40 @@ export async function getTournamentById(id: string): Promise<TournamentWithMatch
     return {
       status: 500,
       message: "Error retrieving tournament",
+      error: error instanceof Error ? error.message : String(error),
+    }
+  }
+}
+
+export async function getTournamentMatchesById(id: string) {
+  if (!id) {
+    return {
+      status: 400,
+      message: "Tournament ID is required",
+    }
+  }
+
+  try {
+    const matches = await prisma.match.findMany({
+      where: { tournamentId: id },
+    })
+
+    if (!matches || matches.length === 0) {
+      return {
+        status: 404,
+        message: "No matches found for the specified tournament",
+      }
+    }
+
+    return {
+      status: 200,
+      message: "Successfully retrieved tournament matches",
+      data: matches,
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      message: "Error retrieving tournament matches",
       error: error instanceof Error ? error.message : String(error),
     }
   }

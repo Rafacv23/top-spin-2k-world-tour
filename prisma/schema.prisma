@@ -74,7 +74,7 @@ model Match {
 
 model Set {
   id             String  @id @default(uuid()) @unique
-  matchId        String @unique
+  matchId        String
   number         SetNumber
   playerOneScore Int  @default(0)
   playerTwoScore Int  @default(0)
