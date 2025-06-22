@@ -9,8 +9,6 @@ export type Tournament = {
   endDate: Date
   year: number
   surface: TournamentSurface
-  points?: number
-  players?: number
 }
 
 type Set = {

@@ -37,9 +37,6 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex gap-2">
-        {tournament.points && (
-          <Badge variant="outline">{tournament.points} Points</Badge>
-        )}
         {tournament.sets && (
           <Badge variant="outline">{tournament.sets} Sets</Badge>
         )}

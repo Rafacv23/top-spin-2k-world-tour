@@ -66,8 +66,7 @@ export async function getTournamentsByYear(year: number) {
         logo: true,
         year: true,
         surface: true,
-        players: true,
-        points: true,
+        sets: true,
       },
     })
 
