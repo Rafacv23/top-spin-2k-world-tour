@@ -15,11 +15,9 @@ model Tournament {
   logo      String
   startDate DateTime
   endDate   DateTime
-  players   Int?
   createdAt DateTime          @default(now())
   updatedAt DateTime          @default(now()) @updatedAt
   surface   TournamentSurface
-  points    Int?
   year      Int
   sets      Int?
   matches   Match[]
