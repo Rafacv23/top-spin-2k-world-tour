@@ -25,6 +25,8 @@ export default async function TournamentDetailsPage({
     )
   }
 
+  console.log(tournament)
+
   return (
     <Container>
       <header>
@@ -56,12 +58,16 @@ export default async function TournamentDetailsPage({
         </div>
         <div className="bg-card p-4 flex flex-col  rounded-lg border w-full">
           <Grid2x2 size={16} />
-          <p>{tournament?.surface} surface</p>
+          <p>
+            {tournament?.surface.charAt(0).toUpperCase() +
+              tournament?.surface.slice(1)}{" "}
+            surface
+          </p>
         </div>
-        {tournament.players && (
+        {tournament.sets && (
           <div className="bg-card p-4 flex flex-col rounded-lg border w-full">
             <Users size={16} />
-            <p>128 players</p>
+            <p>{tournament.sets} sets</p>
           </div>
         )}
       </section>

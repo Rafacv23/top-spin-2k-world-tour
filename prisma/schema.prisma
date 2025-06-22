@@ -19,17 +19,18 @@ model Tournament {
   createdAt DateTime          @default(now())
   updatedAt DateTime          @default(now()) @updatedAt
   surface   TournamentSurface
-  year      Int
   points    Int?
+  year      Int
+  sets      Int?
   matches   Match[]
 }
 
 model Player {
-  id          String  @id @default(uuid()) @unique  
+  id                 String             @id @unique @default(uuid())
   name               String?            @unique
   country            String
   createdAt          DateTime           @default(now())
-  updatedAt          DateTime           @updatedAt @default(now())
+  updatedAt          DateTime           @default(now()) @updatedAt
   email              String             @unique
   availability       AvailabilityDays[]
   discord            String             @unique
@@ -45,7 +46,7 @@ model Player {
 }
 
 model Ranking {
-  id          String  @id @default(uuid()) @unique  
+  id          String   @id @unique @default(uuid())
   playerId    String
   year        Int
   points      Int      @default(0)
@@ -56,35 +57,35 @@ model Ranking {
 }
 
 model Match {
-  id          String  @id @default(uuid()) @unique
+  id           String          @id @unique @default(uuid())
   tournamentId String
   date         DateTime
-  round        TournamentRound
   playerOneId  String
   playerTwoId  String
   winnerId     String?
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @default(now()) @updatedAt
-  playerOne    Player     @relation("PlayerOneMatches", fields: [playerOneId], references: [id])
-  playerTwo    Player     @relation("PlayerTwoMatches", fields: [playerTwoId], references: [id])
-  tournament   Tournament @relation(fields: [tournamentId], references: [id])
-  winner       Player?    @relation(fields: [winnerId], references: [id], onDelete: Restrict)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @default(now()) @updatedAt
+  round        TournamentRound
+  playerOne    Player          @relation("PlayerOneMatches", fields: [playerOneId], references: [id])
+  playerTwo    Player          @relation("PlayerTwoMatches", fields: [playerTwoId], references: [id])
+  tournament   Tournament      @relation(fields: [tournamentId], references: [id])
+  winner       Player?         @relation(fields: [winnerId], references: [id], onDelete: Restrict)
   sets         Set[]
 }
 
 model Set {
-  id             String  @id @default(uuid()) @unique
+  id             String    @id @unique @default(uuid())
   matchId        String
+  playerOneScore Int       @default(0)
+  playerTwoScore Int       @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) @updatedAt
   number         SetNumber
-  playerOneScore Int  @default(0)
-  playerTwoScore Int  @default(0)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt @default(now())
-  match          Match    @relation(fields: [matchId], references: [id])
+  match          Match     @relation(fields: [matchId], references: [id])
 }
 
 model Admin {
-  id          String  @id @default(uuid()) @unique  
+  id        String   @id @unique @default(uuid())
   email     String   @unique
   password  String
   createdAt DateTime @default(now())

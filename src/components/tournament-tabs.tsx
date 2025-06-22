@@ -2,7 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import MatchCard from "@/components/match-card"
-import { groupByRound } from "@/lib/utils"
+import { formatRoundLabel, groupByRound } from "@/lib/utils"
 import { Match, Set } from "@prisma/client"
 import { useState } from "react"
 
@@ -20,7 +20,7 @@ export default function TournamentTabs({ matches }: TournamentTabsProps) {
       <TabsList className="flex flex-wrap gap-2 mb-4">
         {rounds.map((round) => (
           <TabsTrigger key={round} value={round} className="capitalize">
-            {round}
+            {formatRoundLabel(round)}
           </TabsTrigger>
         ))}
       </TabsList>

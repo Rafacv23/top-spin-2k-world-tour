@@ -45,3 +45,11 @@ export function whoWinsTheSet(
   if (p1 < p2) return "p2"
   return "tie"
 }
+
+export function formatRoundLabel(round: string): string {
+  return round
+    .toLowerCase() // "first_round"
+    .split("_") // ["first", "round"]
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // ["First", "Round"]
+    .join(" ") // "First Round"
+}
