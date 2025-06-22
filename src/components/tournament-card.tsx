@@ -1,4 +1,3 @@
-import { Tournament } from "@/lib/types"
 import {
   Card,
   CardContent,
@@ -13,6 +12,7 @@ import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
 import { Tv, UserPlus } from "lucide-react"
 import { DISCORD_URL } from "@/lib/constants"
+import { Tournament } from "@prisma/client"
 
 type TournamentCardProps = {
   tournament: Tournament
