@@ -1,8 +1,8 @@
-import { Tournament } from "@/lib/types" // assuming your Tournament type is here
 import { groupByMonth } from "@/lib/utils"
 import TournamentCard from "@/components/tournament-card"
 import Container from "@/components/container"
 import { getTournamentsByYear } from "@/lib/queries"
+import { Tournament } from "@prisma/client"
 
 type Props = {
   year: number
