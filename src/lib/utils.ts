@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { Tournament } from "./types"
-import { Match } from "@prisma/client"
+import { Match, Set } from "@prisma/client"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -24,13 +24,16 @@ export function groupByMonth(
   }, {})
 }
 
-export function groupByRound(matches: Match[]): Record<string, Match[]> {
-  return matches.reduce<Record<string, Match[]>>((acc, match) => {
-    const round = match.round
-    if (!acc[round]) acc[round] = []
-    acc[round].push(match)
-    return acc
-  }, {})
+export function groupByRound(matches: (Match & { sets: Set[] })[]) {
+  return matches.reduce<Record<string, (Match & { sets: Set[] })[]>>(
+    (acc, match) => {
+      const round = match.round
+      if (!acc[round]) acc[round] = []
+      acc[round].push(match)
+      return acc
+    },
+    {}
+  )
 }
 
 export function whoWinsTheSet(

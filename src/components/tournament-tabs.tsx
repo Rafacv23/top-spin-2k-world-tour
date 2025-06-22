@@ -7,7 +7,7 @@ import { Match, Set } from "@prisma/client"
 import { useState } from "react"
 
 interface TournamentTabsProps {
-  matches: Match[] & { sets: Set[] }
+  matches: (Match & { sets: Set[] })[]
 }
 
 export default function TournamentTabs({ matches }: TournamentTabsProps) {

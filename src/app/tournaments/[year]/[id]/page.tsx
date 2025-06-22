@@ -25,10 +25,6 @@ export default async function TournamentDetailsPage({
     )
   }
 
-  const tournamentMatches = tournament.matches.filter(
-    (m) => m.tournamentId === id
-  )
-
   return (
     <Container>
       <header>
@@ -69,7 +65,7 @@ export default async function TournamentDetailsPage({
           </div>
         )}
       </section>
-      {tournamentMatches.length <= 0 ? (
+      {tournament.matches.length <= 0 ? (
         <section
           id="results"
           className="w-full bg-card p-8 rounded-lg border mt-8"
@@ -78,7 +74,7 @@ export default async function TournamentDetailsPage({
         </section>
       ) : (
         <section id="results" className="w-full">
-          <TournamentTabs matches={tournamentMatches} />
+          <TournamentTabs matches={tournament.matches} />
         </section>
       )}
     </Container>

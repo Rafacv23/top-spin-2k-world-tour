@@ -1,4 +1,4 @@
-import { Match, PrismaClient, Tournament } from "@prisma/client"
+import { Match, PrismaClient, Tournament, Set } from "@prisma/client"
 import { redirect } from "next/navigation"
 
 const prisma = new PrismaClient()
@@ -96,7 +96,7 @@ export async function getTournamentsByYear(year: number) {
 interface TournamentWithMatchesResponse {
   status: number
   message: string
-  data?: Tournament & { matches: Match[] }
+data?: Tournament & { matches: (Match & { sets: Set[] })[] }
   error?: string
 }
 
