@@ -40,7 +40,7 @@ const links = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 flex flex-col gap-4">
+    <section id="contact" className="sm:py-20 flex flex-col gap-4">
       <div className="flex items-center justify-center bg-background">
         <span className="absolute mx-auto py-4 flex border w-fit bg-gradient-to-r blur-xl from-white to-primary bg-clip-text text-4xl box-content font-extrabold text-transparent text-center select-none">
           Contact
