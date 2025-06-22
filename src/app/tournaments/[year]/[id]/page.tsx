@@ -59,9 +59,9 @@ export default async function TournamentDetailsPage({
         <div className="bg-card p-4 flex flex-col  rounded-lg border w-full">
           <Grid2x2 size={16} />
           <p>
-            {tournament?.surface.charAt(0).toUpperCase() +
-              tournament?.surface.slice(1)}{" "}
-            surface
+            {tournament.surface.charAt(0).toUpperCase() +
+              tournament.surface.slice(1).toLowerCase()}{" "}
+            Court
           </p>
         </div>
         {tournament.sets && (

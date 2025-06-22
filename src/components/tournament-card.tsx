@@ -40,7 +40,11 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
         {tournament.sets && (
           <Badge variant="outline">{tournament.sets} Sets</Badge>
         )}
-        <Badge variant="outline">{tournament.surface} Court</Badge>
+        <Badge variant="outline">
+          {tournament.surface.charAt(0).toUpperCase() +
+            tournament.surface.slice(1).toLowerCase()}{" "}
+          Court
+        </Badge>
       </CardContent>
       <CardFooter className="flex flex-row items-center gap-4">
         <Link
