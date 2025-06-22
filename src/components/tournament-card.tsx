@@ -40,9 +40,6 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
         {tournament.points && (
           <Badge variant="outline">{tournament.points} Points</Badge>
         )}
-        {tournament.players && (
-          <Badge variant="outline">{tournament.players} Players</Badge>
-        )}
         {tournament.sets && (
           <Badge variant="outline">{tournament.sets} Sets</Badge>
         )}
