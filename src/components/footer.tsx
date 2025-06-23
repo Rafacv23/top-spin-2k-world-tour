@@ -27,6 +27,7 @@ export default function Footer() {
         <Link
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="/about"
+          title="About us"
         >
           <Info size={16} />
           About us

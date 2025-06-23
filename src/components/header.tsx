@@ -8,7 +8,12 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between p-2 bg-card/60 z-50 fixed md:top-4 left-0 right-0 border backdrop-blur-lg rounded-lg md:mt-4">
       <Link href={"/"} title="Top Spin 2k World Tour">
-        <img src="/image-bg.png" alt="logo" width={60} className="rounded-lg" />
+        <img
+          src="/image-bg.webp"
+          alt="logo"
+          width={60}
+          className="rounded-lg"
+        />
       </Link>
       <div>
         <Link

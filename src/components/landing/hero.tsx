@@ -9,7 +9,7 @@ export default function Hero() {
 
   return (
     <section className="min-h-screen sm:py-20 flex flex-col gap-4">
-      <img src="/image-bg.png" alt="logo" width={200} className="rounded-lg" />
+      <img src="/image-bg.webp" alt="logo" width={200} className="rounded-lg" />
       <GlowingTitle>{SITE_NAME}</GlowingTitle>
       <p className="text-center text-2xl">
         Join the ultimate tennis gaming tournament and compete with players
