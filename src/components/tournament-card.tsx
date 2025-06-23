@@ -70,7 +70,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
           <Link
             href={`/tournaments/2025/${tournament.id}`}
             title="View Tournament"
-            className={buttonVariants({ variant: "default" })}
+            className={buttonVariants({ variant: "outline" })}
           >
             <Tv size={16} /> Results
           </Link>
