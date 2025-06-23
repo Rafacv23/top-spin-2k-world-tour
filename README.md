@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎾 Top Spin 2K World Tour
 
-## Getting Started
+A full-stack tennis tournament manager and leaderboard app, built with modern technologies. Track players, view tournaments, check match results by round and set, and sync events with your calendar.
 
-First, run the development server:
+## ✨ Features
+
+- 📅 View upcoming and past tournaments by year
+- 🏅 Track player rankings and points dynamically
+- 🎾 Browse match results grouped by tournament round and individual sets
+- 🧑‍💼 Player registration with Discord and 2K ID
+- 🗓️ Sync tournaments to Google, Apple, Outlook, iCal, Yahoo & Notion calendars
+- 📱 Fully responsive UI with smooth UX
+
+## 🔧 Tech Stack
+
+- **Frontend**: [Next.js](https://nextjs.org/) (App Router), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/)
+- **Backend**: [Prisma](https://www.prisma.io/) ORM, [PostgreSQL](https://www.postgresql.org/) via [Supabase](https://supabase.com/)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **Deployment**: [Vercel](https://vercel.com/)
+
+## 📸 Screenshots
+
+<insert screenshots here if available>
+
+## 🗂️ Project Structure
+
+```
+.
+├── prisma/             # Prisma schema and migrations
+├── app/                # Next.js app directory
+├── components/         # UI and layout components
+├── lib/                # Utilities and reusable functions
+├── public/             # Static files
+├── styles/             # Tailwind styles
+└── .env                # Environment variables
+```
+
+## 🚀 Getting Started
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/rafacv23/top-spin-2k-world-tour.git
+cd top-spin-2k-world-tour
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Set up the environment
+
+Create a `.env` file based on `.env.example`:
+
+```env
+DATABASE_URL=your_supabase_postgres_url
+```
+
+### 4. Push schema to your database
+
+```bash
+npx prisma db push
+```
+
+Or if using migrations:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+### 5. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Now visit `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Development Notes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Prisma client is generated based on the schema.
+- All tournament matches include their respective sets using Prisma's `include`.
+- Dates are formatted with `date-fns`.
+- Tournament rounds are grouped and displayed with tabs using `shadcn/ui`.
 
-## Learn More
+## 🧪 TODO
 
-To learn more about Next.js, take a look at the following resources:
+- Player profiles
+- Admin dashboard for match results
+- Better i18n support
+- Match history and stats per player
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📬 Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Pull requests and ideas are welcome! If you find bugs or want to improve a feature, feel free to open an issue.
 
-## Deploy on Vercel
+## 📄 License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT License © [Rafa Canosa](https://github.com/rafacv23)
