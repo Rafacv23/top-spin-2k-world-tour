@@ -13,11 +13,20 @@ import { format } from "date-fns"
 import { Tv, UserPlus } from "lucide-react"
 import { DISCORD_URL } from "@/lib/constants"
 import { Tournament } from "@prisma/client"
+import CalendarBtn from "@/components/calendar-btn"
 
 type TournamentCardProps = {
   tournament: Tournament
 }
 export default function TournamentCard({ tournament }: TournamentCardProps) {
+  const today = new Date()
+  const startDate = new Date(tournament.startDate)
+
+  const formatedStartDate = format(tournament.startDate, "yyyyMMdd'T'HHmmss'Z'")
+  const formatedEndDate = format(tournament.endDate, "yyyyMMdd'T'HHmmss'Z'")
+
+  const played = today > startDate // check if the tournaments has started or not
+
   return (
     <Card className="h-full">
       <CardHeader>
@@ -57,13 +66,24 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
           <UserPlus size={16} />
           Join
         </Link>
-        <Link
-          href={`/tournaments/2025/${tournament.id}`}
-          title="View Tournament"
-          className={buttonVariants({ variant: "default" })}
-        >
-          <Tv size={16} /> Results
-        </Link>
+        {played ? (
+          <Link
+            href={`/tournaments/2025/${tournament.id}`}
+            title="View Tournament"
+            className={buttonVariants({ variant: "default" })}
+          >
+            <Tv size={16} /> Results
+          </Link>
+        ) : (
+          <CalendarBtn
+            startDate={formatedStartDate}
+            endDate={formatedEndDate}
+            tournamentTitle={tournament.name}
+            tournamentDescription={
+              tournament.location + " " + tournament.surface
+            }
+          />
+        )}
       </CardFooter>
     </Card>
   )
