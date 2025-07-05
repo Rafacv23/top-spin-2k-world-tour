@@ -25,8 +25,6 @@ export default async function TournamentDetailsPage({
     )
   }
 
-  console.log(tournament)
-
   return (
     <Container>
       <header>
