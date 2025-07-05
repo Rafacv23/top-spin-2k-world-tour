@@ -6,13 +6,25 @@ import { formatRoundLabel, groupByRound } from "@/lib/utils"
 import { Match, Set } from "@prisma/client"
 import { useState } from "react"
 
+const ROUND_ORDER = [
+  "ROUND_OF_128",
+  "ROUND_OF_64",
+  "ROUND_OF_32",
+  "ROUND_OF_16",
+  "QUARTER_FINALS",
+  "SEMI_FINALS",
+  "FINAL",
+]
+
 interface TournamentTabsProps {
   matches: (Match & { sets: Set[] })[]
 }
 
 export default function TournamentTabs({ matches }: TournamentTabsProps) {
   const groupedMatches = groupByRound(matches)
-  const rounds = Object.keys(groupedMatches)
+  const rounds = Object.keys(groupedMatches).sort(
+    (a, b) => ROUND_ORDER.indexOf(a) - ROUND_ORDER.indexOf(b)
+  )
   const [activeTab, setActiveTab] = useState(rounds[0])
 
   return (
