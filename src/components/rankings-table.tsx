@@ -24,7 +24,6 @@ export default async function RankingsTable({ year }: Props) {
           <TableHead className="w-[100px]">Rank</TableHead>
           <TableHead>Player</TableHead>
           <TableHead>Country</TableHead>
-          <TableHead>Tournaments</TableHead>
           <TableHead className="text-right">Points</TableHead>
         </TableRow>
       </TableHeader>
@@ -34,7 +33,6 @@ export default async function RankingsTable({ year }: Props) {
             <TableCell className="font-medium">{player.position}</TableCell>
             <TableCell>{player.name}</TableCell>
             <TableCell>{player.country}</TableCell>
-            <TableCell>{player.tournaments}</TableCell>
             <TableCell className="text-right">{player.points}</TableCell>
           </TableRow>
         ))}
